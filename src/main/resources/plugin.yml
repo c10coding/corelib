@@ -1,0 +1,4 @@
+name: CoreAPI
+version: ${project.version}
+main: me.c10coding.coreapi.CoreAPI
+api-version: 1.13
