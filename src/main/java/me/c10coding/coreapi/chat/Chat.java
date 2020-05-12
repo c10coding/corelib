@@ -7,6 +7,7 @@ package me.c10coding.coreapi.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Chat {
@@ -37,7 +38,14 @@ public class Chat {
         } else {
             p.sendMessage(formatString("&r" + s));
         }
+    }
 
+    public void sendPlayerMessage(String s, boolean wantPrefix, CommandSender sender, String prefix) {
+        if (wantPrefix) {
+            sender.sendMessage(formatString(prefix + " &r" + s));
+        } else {
+            sender.sendMessage(formatString("&r" + s));
+        }
     }
 
     public void sendConsoleMessage(String s, String prefix) {
