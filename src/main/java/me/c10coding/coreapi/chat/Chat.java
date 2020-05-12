@@ -10,30 +10,28 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Chat {
-    public Chat() {
-    }
 
-    public static String firstUpperRestLower(String s) {
+    public String firstUpperRestLower(String s) {
         return s.substring(0, 1) + s.substring(1);
     }
 
-    public static String valueOf(int x) {
+    public String valueOf(int x) {
         return String.valueOf(x);
     }
 
-    public static String valueOf(double x) {
+    public String valueOf(double x) {
         return String.valueOf(x);
     }
 
-    public static String valueOf(boolean x) {
+    public String valueOf(boolean x) {
         return String.valueOf(x);
     }
 
-    public static String formatString(String s) {
+    public String formatString(String s) {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public static void sendPlayerMessage(String s, boolean wantPrefix, Player p, String prefix) {
+    public void sendPlayerMessage(String s, boolean wantPrefix, Player p, String prefix) {
         if (wantPrefix) {
             p.sendMessage(formatString(prefix + " &r" + s));
         } else {
@@ -46,7 +44,15 @@ public class Chat {
         Bukkit.getConsoleSender().sendMessage(formatString(prefix + " &r" + s));
     }
 
-    public static void bsm(String s) {
+    public void bsm(String s) {
         Bukkit.broadcastMessage(s);
+    }
+
+    public String chat(String s) {
+        return ChatColor.translateAlternateColorCodes('&', s);
+    }
+
+    public String removeChatColor(String s){
+        return ChatColor.stripColor(s);
     }
 }

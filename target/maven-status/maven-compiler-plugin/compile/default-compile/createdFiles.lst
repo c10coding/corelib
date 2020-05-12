@@ -1,0 +1,6 @@
+me\c10coding\coreapi\binder\Binder.class
+me\c10coding\coreapi\CoreAPI.class
+me\c10coding\coreapi\serializers\LocationSerializer.class
+me\c10coding\coreapi\numbers\MathHelper.class
+me\c10coding\coreapi\chat\Chat.class
+me\c10coding\coreapi\players\PlayerHelper.class

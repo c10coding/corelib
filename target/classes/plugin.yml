@@ -1,0 +1,4 @@
+name: CoreAPI
+version: 1.0-SNAPSHOT
+main: me.c10coding.coreapi.CoreAPI
+api-version: 1.13
