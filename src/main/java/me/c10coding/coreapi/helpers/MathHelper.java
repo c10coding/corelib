@@ -1,4 +1,4 @@
-package me.c10coding.coreapi.numbers;
+package me.c10coding.coreapi.helpers;
 
 import org.bukkit.entity.Player;
 
@@ -6,20 +6,20 @@ import java.text.DecimalFormat;
 
 public class MathHelper {
 
-    public static double roundToPoint5(double x) {
+    public double roundToPoint5(double x) {
         return Math.round(x * 2) / 2.0;
     }
 
-    public static long secondsToTicks(double seconds) {
+    public long secondsToTicks(double seconds) {
         return (long) (seconds*20);
     }
 
-    public static double roundToPoint1(double x) {
+    public double roundToPoint1(double x) {
         DecimalFormat df = new DecimalFormat("0.#");
         return Double.parseDouble(df.format(x));
     }
 
-    public static String getCardinalDirection(Player player) {
+    public String getCardinalDirection(Player player) {
         double rotation = (player.getLocation().getYaw() - 90) % 360;
         if (rotation < 0) {
             rotation += 360.0;
@@ -45,5 +45,14 @@ public class MathHelper {
         } else {
             return null;
         }
+    }
+
+    public boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 }

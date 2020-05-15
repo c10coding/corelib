@@ -24,8 +24,8 @@ public abstract class Menu implements InventoryHolder {
         protected final Inventory inv;
         protected Material fillerMat;
         protected JavaPlugin plugin;
-        private static CoreAPI api = new CoreAPI();
-        private static Chat chatFactory = api.getChatFactory();
+        private CoreAPI api = new CoreAPI();
+        private Chat chatFactory = api.getChatFactory();
 
         public Menu(String menuTitle, int numSlots) {
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.chat(menuTitle));
