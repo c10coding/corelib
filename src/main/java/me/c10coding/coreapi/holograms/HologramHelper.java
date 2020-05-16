@@ -7,23 +7,66 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HologramHelper {
 
+    private JavaPlugin plugin;
     private HologramsConfigManager hc;
+    private AnimationsConfigManager acm;
     private Chat chatFactory = new Chat();
 
     public HologramHelper(JavaPlugin plugin){
+        this.plugin = plugin;
         hc = new HologramsConfigManager(plugin);
+        acm = new AnimationsConfigManager(plugin);
+    }
+
+    public void startAnimations(){
+        for(String name : getAllNames()){
+            int numLines = hc.getNumLines(name);
+            for(int x = 1; x <= numLines; x++){
+                if(acm.animationIsEnabled(name, x)){
+                    new HologramAnimator(plugin, name, x).runTaskTimer(plugin, 0L, 20L);
+                }else{
+                    /*
+                    If the animation is disabled, but it's in the animations config file, set the line back to what it originally is without the animations.
+                     */
+                    if(hasAnimation(name, x)){
+                        ArmorStand as = hc.getHologramArmorStand(name, x);
+                        String line = hc.getHologramLine(name, x);
+                        as.setCustomName(line);
+                    }
+                }
+            }
+        }
+    }
+
+    public void setAsAnimatable(String hologramName, int numLine){
+        acm.addAsAnimatable(hologramName, numLine);
+        acm.saveConfig();
+    }
+
+    public boolean isBeingAnimated(String hologramName, int numLine){
+        return acm.animationIsEnabled(hologramName, numLine);
+    }
+
+    public boolean hasAnimation(String hologramName, int numLine){
+        return acm.hasAnimation(hologramName, numLine);
+    }
+
+    public void setAnimationStatus(String hologramName, int numLine, boolean isEnabled){
+        acm.setAnimationStatus(hologramName, numLine, isEnabled);
+        acm.saveConfig();
     }
 
     public void createHologram(Player p, String hologramText, String hologramName){
         ArmorStand hologram = (ArmorStand) p.getWorld().spawnEntity(p.getLocation().subtract(0,1, 0), EntityType.ARMOR_STAND);
         setArmorStandTraits(hologram, hologramText);
-        hc.createNewHologram(hologramName, hologramText, p.getLocation());
+        hc.createNewHologram(hologramName, hologramText, p.getLocation(), hologram.getUniqueId());
         hc.saveConfig();
     }
 
@@ -34,6 +77,8 @@ public class HologramHelper {
         }
         armorStands.stream().forEach(armorStand -> armorStand.remove());
         hc.removeHologram(hologramName);
+        acm.removeAnimation(hologramName);
+        acm.saveConfig();
         hc.saveConfig();
     }
 
@@ -82,6 +127,7 @@ public class HologramHelper {
         hologram.setCustomName(chatFactory.chat(hologramText));
         hologram.setGravity(false);
     }
+
 
 
 
