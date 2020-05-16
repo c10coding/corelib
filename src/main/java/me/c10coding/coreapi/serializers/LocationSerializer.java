@@ -14,11 +14,11 @@ public class LocationSerializer {
     }
 
     public void storeLocation(String path, Location loc) {
-        config.set(path, "World: " + loc.getWorld().getName() + ";X: " + loc.getX() + ";Y: " + loc.getY() + ";Z: " + loc.getZ());
+        config.set(path, "World: " + loc.getWorld().getName() + ";X: " + loc.getBlockX() + ";Y: " + loc.getBlockY() + ";Z: " + loc.getBlockZ());
     }
 
     public String toString(Location loc){
-        return "World: " + loc.getWorld().getName() + ";X: " + loc.getX() + ";Y: " + loc.getY() + ";Z: " + loc.getZ();
+        return "World: " + loc.getWorld().getName() + ";X: " + loc.getBlockX() + ";Y: " + loc.getBlockY() + ";Z: " + loc.getBlockZ();
     }
 
     public Location toLocationFromPath(String path) {
@@ -27,9 +27,10 @@ public class LocationSerializer {
         double x,y,z;
 
         String line = config.getString(path);
+
         String[] arrLine = line.split(";");
 
-        w =  Bukkit.getWorld(arrLine[0].substring(7));
+        w = Bukkit.getWorld(arrLine[0].substring(7));
         x = Double.parseDouble(arrLine[1].substring(3));
         y = Double.parseDouble(arrLine[2].substring(3));
         z = Double.parseDouble(arrLine[3].substring(3));
@@ -44,7 +45,7 @@ public class LocationSerializer {
 
         String[] arrLine = line.split(";");
 
-        w =  Bukkit.getWorld(arrLine[0].substring(7));
+        w = Bukkit.getWorld(arrLine[0].substring(7));
         x = Double.parseDouble(arrLine[1].substring(3));
         y = Double.parseDouble(arrLine[2].substring(3));
         z = Double.parseDouble(arrLine[3].substring(3));

@@ -8,8 +8,10 @@ package me.c10coding.coreapi;
 import me.c10coding.coreapi.chat.Chat;
 import me.c10coding.coreapi.helpers.MathHelper;
 import me.c10coding.coreapi.helpers.PlayerHelper;
+import me.c10coding.coreapi.holograms.HologramHelper;
 import me.c10coding.coreapi.serializers.LocationSerializer;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CoreAPI {
 
@@ -39,6 +41,9 @@ public class CoreAPI {
         return playerHelper;
     }
 
+    public HologramHelper getHologramHelper(JavaPlugin plugin){
+        return new HologramHelper(plugin);
+    }
 
 
 }
