@@ -46,7 +46,7 @@ public class ConfigManager{
         config = YamlConfiguration.loadConfiguration(file);
     }
 
-    protected FileConfiguration getConfig(){
+    public FileConfiguration getConfig(){
         return config;
     }
 

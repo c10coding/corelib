@@ -51,7 +51,7 @@ public abstract class Menu implements InventoryHolder {
         /*
          * If the item has enchantments
          */
-        protected ItemStack createGuiItem(Material mat, String name, Map<Enchantment,Integer> enchants, int amount, String...lore) {
+        protected ItemStack createGuiItem(Material mat, String name, Map<Enchantment,Integer> enchants, int amount, List<String> lore) {
 
             ItemStack item = new ItemStack(mat, amount);
 
@@ -101,7 +101,7 @@ public abstract class Menu implements InventoryHolder {
         /*
          * No enchants. Regular items
          */
-        protected ItemStack createGuiItem(Material material, String name,int amount, String...lore) {
+        protected ItemStack createGuiItem(Material material, String name,int amount, List<String> lore) {
 
             ItemStack item = new ItemStack(material,amount);
 
@@ -110,7 +110,7 @@ public abstract class Menu implements InventoryHolder {
             item.setAmount(amount);
             ArrayList<String> metaLore = new ArrayList<>();
 
-            if(lore.length != 0) {
+            if(lore.size() != 0) {
                 for(String lorecomments : lore) {
                     metaLore.add(lorecomments);
                 }
@@ -125,7 +125,7 @@ public abstract class Menu implements InventoryHolder {
         }
 
         //If you only want one item
-        protected ItemStack createGuiItem(Material material, String name, String...lore) {
+        protected ItemStack createGuiItem(Material material, String name, List<String> lore) {
 
             ItemStack item = new ItemStack(material, 1);
 
@@ -174,7 +174,10 @@ public abstract class Menu implements InventoryHolder {
             for(int x = amount; x < invSlots; x++) {
                 inv.setItem(x, createGuiItem());
                 if(x == (invSlots - 1)) {
-                    inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.chat("&6Go back"), chatFactory.chat("&rClick me to go back to the"), chatFactory.chat("&rlast menu!")));
+                    List<String> lore = new ArrayList<>();
+                    lore.add(chatFactory.chat("&rClick me to go back to the"));
+                    lore.add(chatFactory.chat("&rlast menu!"));
+                    inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.chat("&6Go back"), lore));
                 }
             }
         }
@@ -188,7 +191,10 @@ public abstract class Menu implements InventoryHolder {
             for(int x = amount; x < invSlots; x++) {
                 inv.setItem(x, createGuiItem());
                 if(x == (invSlots - 1)) {
-                    inv.setItem(x, createGuiItem(Material.REDSTONE_TORCH_ON, chatFactory.chat("&6Go back"), chatFactory.chat("&rClick me to go back to the"), chatFactory.chat("&rlast menu!")));
+                    List<String> lore = new ArrayList<>();
+                    lore.add(chatFactory.chat("&rClick me to go back to the"));
+                    lore.add(chatFactory.chat("&rlast menu!"));
+                    inv.setItem(x, createGuiItem(Material.REDSTONE_TORCH_ON, chatFactory.chat("&6Go back"), lore));
                 }
             }
         }
