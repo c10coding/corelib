@@ -26,6 +26,7 @@ public class ItemStackSerializer {
         short durability = is.getDurability();
         List<String> lore = meta.getLore();
         Map<Enchantment, Integer> enchants;
+        Material mat = is.getType();
 
         if(meta.hasEnchants()){
             if(meta instanceof EnchantmentStorageMeta){
@@ -38,7 +39,7 @@ public class ItemStackSerializer {
         }
 
         itemInfo.put("DisplayName", name);
-        //itemInfo.put("Material", mat);
+        itemInfo.put("Material", mat);
         itemInfo.put("Amount", amount);
         itemInfo.put("Durability", durability);
         itemInfo.put("Lore", lore);
@@ -64,8 +65,13 @@ public class ItemStackSerializer {
         }
     }
 
-    public static ItemStack lineToItemStack(ConfigurationSection cs){
-
+    public static ItemStack lineToItemStack(String line){
+        // item_name; 1
+        String[] arr = line.split(";");
+        String itemName = arr[0].trim();
+        int amount = Integer.parseInt(arr[1].trim());
+        Material mat = Material.valueOf(itemName);
+        return new ItemStack(mat, amount);
     }
 
 
