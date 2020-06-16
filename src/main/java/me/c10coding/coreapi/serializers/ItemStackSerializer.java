@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class ItemStackSerializer {
 
-    private static Map<String, Object> getItemInfo(ItemStack is, int numSlot){
+    private Map<String, Object> getItemInfo(ItemStack is, int numSlot){
 
         Map<String, Object> itemInfo = new HashMap<>();
         ItemMeta meta = is.getItemMeta();
@@ -50,7 +50,7 @@ public class ItemStackSerializer {
 
     }
 
-    public static void storeItems(FileConfiguration config, Map<Integer, ItemStack> items, UUID playerUUID){
+    public void storeItems(FileConfiguration config, Map<Integer, ItemStack> items, UUID playerUUID){
         for(Map.Entry item : items.entrySet()){
             int numSlot = (int) item.getKey();
             ItemStack is = (ItemStack) item.getValue();
@@ -65,7 +65,7 @@ public class ItemStackSerializer {
         }
     }
 
-    public static ItemStack lineToItemStack(String line){
+    public ItemStack lineToItemStack(String line){
         // item_name; 1
         String[] arr = line.split(";");
         String itemName = arr[0].trim();

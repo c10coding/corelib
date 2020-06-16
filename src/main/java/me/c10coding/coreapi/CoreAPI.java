@@ -5,10 +5,8 @@
 
 package me.c10coding.coreapi;
 
-import me.c10coding.coreapi.chat.Chat;
-import me.c10coding.coreapi.helpers.MathHelper;
-import me.c10coding.coreapi.helpers.PlayerHelper;
-import me.c10coding.coreapi.helpers.ProbabilityUtilities;
+import me.c10coding.coreapi.chat.ChatFactory;
+import me.c10coding.coreapi.helpers.*;
 import me.c10coding.coreapi.holograms.HologramHelper;
 import me.c10coding.coreapi.serializers.ItemStackSerializer;
 import me.c10coding.coreapi.serializers.LocationSerializer;
@@ -17,8 +15,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CoreAPI extends JavaPlugin{
 
+    private static CoreAPI instance;
+    private ItemStackHelper itemStackHelper;
+    private ChatFactory chatFactory;
+    private MathHelper mathHelper;
+    private PlayerHelper playerHelper;
+    private ItemStackSerializer itemStackSerializer;
+    private ProbabilityUtilities probabilityUtilities;
+    private BlockHelper blockHelper;
+
     @Override
-    public void onEnable(){ }
+    public void onEnable(){
+        instance = this;
+        this.itemStackHelper = new ItemStackHelper();
+        this.chatFactory = new ChatFactory();
+        this.mathHelper = new MathHelper();
+        this.playerHelper = new PlayerHelper();
+        this.itemStackSerializer = new ItemStackSerializer();
+        this.probabilityUtilities = new ProbabilityUtilities();
+        this.blockHelper = new BlockHelper();
+    }
 
     @Override
     public void onDisable(){}
@@ -27,16 +43,16 @@ public class CoreAPI extends JavaPlugin{
         return new LocationSerializer(config);
     }
 
-    public Chat getChatFactory(){
-        return new Chat();
+    public ChatFactory getChatFactory(){
+        return chatFactory;
     }
 
     public MathHelper getMathHelper(){
-        return new MathHelper();
+        return mathHelper;
     }
 
     public PlayerHelper getPlayerHelper(){
-        return new PlayerHelper();
+        return playerHelper;
     }
 
     public HologramHelper getHologramHelper(JavaPlugin plugin){
@@ -44,11 +60,23 @@ public class CoreAPI extends JavaPlugin{
     }
 
     public ProbabilityUtilities getProbabilityUtilities(){
-        return new ProbabilityUtilities();
+        return probabilityUtilities;
     }
 
     public ItemStackSerializer getItemStackSerializer(){
-        return new ItemStackSerializer();
+        return itemStackSerializer;
+    }
+
+    public ItemStackHelper getItemStackHelper(){
+        return itemStackHelper;
+    }
+
+    public BlockHelper getBlockHelper(){
+        return blockHelper;
+    }
+
+    public static CoreAPI getInstance(){
+        return instance;
     }
 
 }

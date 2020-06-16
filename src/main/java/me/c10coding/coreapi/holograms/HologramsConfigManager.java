@@ -1,9 +1,7 @@
 package me.c10coding.coreapi.holograms;
 
-import me.c10coding.coreapi.chat.Chat;
 import me.c10coding.coreapi.files.ConfigManager;
 import me.c10coding.coreapi.serializers.LocationSerializer;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.ArmorStand;

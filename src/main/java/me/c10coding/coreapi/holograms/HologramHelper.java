@@ -1,6 +1,6 @@
 package me.c10coding.coreapi.holograms;
 
-import me.c10coding.coreapi.chat.Chat;
+import me.c10coding.coreapi.chat.ChatFactory;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
@@ -15,7 +15,7 @@ public class HologramHelper {
     private JavaPlugin plugin;
     private HologramsConfigManager hc;
     private AnimationsConfigManager acm;
-    private Chat chatFactory = new Chat();
+    private ChatFactory chatFactory = new ChatFactory();
 
     public HologramHelper(JavaPlugin plugin){
         this.plugin = plugin;
@@ -116,7 +116,7 @@ public class HologramHelper {
 
     public void editLine(String hologramName, String newHologramText, int numLine){
         ArmorStand armorStand = hc.getHologramArmorStand(hologramName, numLine);
-        armorStand.setCustomName(chatFactory.chat(newHologramText));
+        armorStand.setCustomName(chatFactory.colorString(newHologramText));
         hc.editLine(hologramName, newHologramText, numLine);
         hc.saveConfig();
     }
@@ -151,7 +151,7 @@ public class HologramHelper {
     public void setArmorStandTraits(ArmorStand hologram, String hologramText){
         hologram.setVisible(false);
         hologram.setCustomNameVisible(true);
-        hologram.setCustomName(chatFactory.chat(hologramText));
+        hologram.setCustomName(chatFactory.colorString(hologramText));
         hologram.setGravity(false);
     }
 

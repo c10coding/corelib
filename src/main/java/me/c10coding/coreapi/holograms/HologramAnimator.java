@@ -1,6 +1,6 @@
 package me.c10coding.coreapi.holograms;
 
-import me.c10coding.coreapi.chat.Chat;
+import me.c10coding.coreapi.chat.ChatFactory;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -13,7 +13,7 @@ public class HologramAnimator extends BukkitRunnable {
     private List<String> animationLines;
     private HologramsConfigManager hcm;
     private AnimationsConfigManager acm;
-    private Chat chatFactory = new Chat();
+    private ChatFactory chatFactory = new ChatFactory();
     String text = "";
     int counter = 0;
 
@@ -31,7 +31,7 @@ public class HologramAnimator extends BukkitRunnable {
             counter = 0;
         }
         text = animationLines.get(counter);
-        hologram.setCustomName(chatFactory.chat(text));
+        hologram.setCustomName(chatFactory.colorString(text));
         counter++;
 
     }

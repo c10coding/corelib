@@ -1,7 +1,7 @@
 package me.c10coding.coreapi.menus;
 
 import me.c10coding.coreapi.CoreAPI;
-import me.c10coding.coreapi.chat.Chat;
+import me.c10coding.coreapi.chat.ChatFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,15 +25,14 @@ public abstract class Menu implements InventoryHolder {
         protected final Inventory inv;
         protected Material fillerMat;
         protected JavaPlugin plugin;
-        private CoreAPI api = new CoreAPI();
-        private Chat chatFactory = api.getChatFactory();
+        private ChatFactory chatFactory = CoreAPI.getInstance().getChatFactory();
 
         public Menu(String menuTitle, int numSlots) {
-            this.inv = Bukkit.createInventory(this, numSlots, chatFactory.chat(menuTitle));
+            this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
         }
 
         public Menu(JavaPlugin plugin, String menuTitle, int numSlots){
-            this.inv = Bukkit.createInventory(this, numSlots, chatFactory.chat(menuTitle));
+            this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
             this.plugin = plugin;
         }
 
@@ -179,9 +178,9 @@ public abstract class Menu implements InventoryHolder {
                 inv.setItem(x, createGuiItem());
                 if(x == (invSlots - 1)) {
                     List<String> lore = new ArrayList<>();
-                    lore.add(chatFactory.chat("&rClick me to go back to the"));
-                    lore.add(chatFactory.chat("&rlast menu!"));
-                    inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.chat("&6Go back"), lore));
+                    lore.add(chatFactory.colorString("&rClick me to go back to the"));
+                    lore.add(chatFactory.colorString("&rlast menu!"));
+                    inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.colorString("&6Go back"), lore));
                 }
             }
         }
@@ -196,9 +195,9 @@ public abstract class Menu implements InventoryHolder {
                 inv.setItem(x, createGuiItem());
                 if(x == (invSlots - 1)) {
                     List<String> lore = new ArrayList<>();
-                    lore.add(chatFactory.chat("&rClick me to go back to the"));
-                    lore.add(chatFactory.chat("&rlast menu!"));
-                    inv.setItem(x, createGuiItem(Material.REDSTONE_TORCH_ON, chatFactory.chat("&6Go back"), lore));
+                    lore.add(chatFactory.colorString("&rClick me to go back to the"));
+                    lore.add(chatFactory.colorString("&rlast menu!"));
+                    inv.setItem(x, createGuiItem(Material.LEGACY_REDSTONE_TORCH_ON, chatFactory.colorString("&6Go back"), lore));
                 }
             }
         }
