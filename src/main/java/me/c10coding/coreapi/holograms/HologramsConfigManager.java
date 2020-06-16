@@ -65,9 +65,11 @@ public class HologramsConfigManager extends ConfigManager {
     }
 
     protected ArmorStand getHologramArmorStand(String hologramName, int numLine){
-        Chat chatFactory = new Chat();
         Location armorStandLocation = ls.toLocationFromPath(getPath("Location", hologramName, numLine));
-        Collection<Entity> nearbyEntities = armorStandLocation.getWorld().getNearbyEntities(armorStandLocation, 5, 5, 5);
+        if(!armorStandLocation.getChunk().isLoaded()){
+            armorStandLocation.getChunk().load();
+        }
+        Collection<Entity> nearbyEntities = armorStandLocation.getWorld().getNearbyEntities(armorStandLocation, 1.5, 1.5, 1.5);
         for(Entity e : nearbyEntities){
             if(e instanceof ArmorStand){
                 UUID configLineUUID = getHologramUUID(hologramName, numLine);

@@ -40,4 +40,14 @@ public class AnimationsConfigManager extends ConfigManager {
         config.set("Animations." + hologramName + "." + numLine + ".Lines", lines);
     }
 
+    protected void addAnimationLine(String hologramName, String text, int numLine){
+        List<String> animationLines = getAnimationLines(hologramName, numLine);
+        animationLines.add(text);
+        config.set("Animations." + hologramName  + "." + numLine + ".Lines", animationLines);
+    }
+
+    protected void setAnimationLines(String hologramName, List<String> lines, int numLine){
+        config.set("Animations." + hologramName  + "." + numLine + ".Lines", lines);
+    }
+
 }

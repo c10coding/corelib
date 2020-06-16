@@ -1,13 +1,11 @@
 package me.c10coding.coreapi.holograms;
 
 import me.c10coding.coreapi.chat.Chat;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,23 +61,38 @@ public class HologramHelper {
         acm.saveConfig();
     }
 
-    public void createHologram(Player p, String hologramText, String hologramName){
-        ArmorStand hologram = (ArmorStand) p.getWorld().spawnEntity(p.getLocation().subtract(0,1, 0), EntityType.ARMOR_STAND);
+    public void createHologram(Location loc, String hologramText, String hologramName){
+        loadChunk(loc);
+        ArmorStand hologram = (ArmorStand) loc.getWorld().spawnEntity(loc.subtract(0,1, 0), EntityType.ARMOR_STAND);
         setArmorStandTraits(hologram, hologramText);
-        hc.createNewHologram(hologramName, hologramText, p.getLocation(), hologram.getUniqueId());
+        hc.createNewHologram(hologramName, hologramText, loc, hologram.getUniqueId());
         hc.saveConfig();
     }
 
     public void removeHologram(String hologramName){
-        List<ArmorStand> armorStands = new ArrayList<>();
         for(int x = 1; x <= hc.getNumLines(hologramName); x++){
-            armorStands.add(hc.getHologramArmorStand(hologramName, x));
+            ArmorStand as = hc.getHologramArmorStand(hologramName, x);
+            if(as != null){
+                if(!as.getLocation().getChunk().isLoaded()){
+                    as.getLocation().getChunk().load();
+                }
+                as.remove();
+            }
         }
-        armorStands.stream().forEach(armorStand -> armorStand.remove());
         hc.removeHologram(hologramName);
         acm.removeAnimation(hologramName);
         acm.saveConfig();
         hc.saveConfig();
+    }
+
+    public void removeAllHolograms(){
+        List<ArmorStand> armorstands = hc.getAllArmorStands();
+        World w = armorstands.get(0).getLocation().getWorld();
+        for(ArmorStand as : armorstands){
+            if(w.getEntities().contains(as)){
+                as.remove();
+            }
+        }
     }
 
     public void addLine(String hologramName, String hologramText){
@@ -91,11 +104,25 @@ public class HologramHelper {
         hc.saveConfig();
     }
 
+    public void addAnimationLine(String hologramName, String hologramText, int numLine){
+        acm.addAnimationLine(hologramName, hologramText, numLine);
+        acm.saveConfig();
+    }
+
+    public void setAnimationLines(String hologramName, List<String> lines, int numLine){
+        acm.setAnimationLines(hologramName, lines, numLine);
+        acm.saveConfig();
+    }
+
     public void editLine(String hologramName, String newHologramText, int numLine){
         ArmorStand armorStand = hc.getHologramArmorStand(hologramName, numLine);
         armorStand.setCustomName(chatFactory.chat(newHologramText));
         hc.editLine(hologramName, newHologramText, numLine);
         hc.saveConfig();
+    }
+
+    public String getLine(String hologramName, int numLine){
+        return hc.getHologramLine(hologramName, numLine);
     }
 
     public List<String> getAllNames(){
@@ -126,6 +153,12 @@ public class HologramHelper {
         hologram.setCustomNameVisible(true);
         hologram.setCustomName(chatFactory.chat(hologramText));
         hologram.setGravity(false);
+    }
+
+    private void loadChunk(Location loc){
+        if(loc.getChunk().isLoaded()){
+            loc.getChunk().load();
+        }
     }
 
 

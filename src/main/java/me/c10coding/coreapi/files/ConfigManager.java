@@ -34,15 +34,16 @@ public class ConfigManager{
         }
     }
 
-    protected void loadConfig(){
+    public void loadConfig(){
         try {
             config.load(file);
         } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
             logger.warning("Unable to load " + fileName);
         }
     }
 
-    protected void reloadConfig() {
+    public void reloadConfig() {
         config = YamlConfiguration.loadConfiguration(file);
     }
 

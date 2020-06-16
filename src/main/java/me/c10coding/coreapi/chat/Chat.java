@@ -10,6 +10,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chat {
 
     public String firstUpperRestLower(String s) {
@@ -62,5 +65,13 @@ public class Chat {
 
     public String removeChatColor(String s){
         return ChatColor.stripColor(s);
+    }
+
+    public List<String> colorLore(List<String> lore){
+        List<String> newLore = new ArrayList<>();
+        for(String s : lore){
+            newLore.add(chat(s));
+        }
+        return newLore;
     }
 }

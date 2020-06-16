@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -71,7 +72,7 @@ public abstract class Menu implements InventoryHolder {
 
             for(int x = 0; x < enchants.size(); x++) {
 
-                if(!item.getType().equals(Material.NETHER_STAR)) {
+                if(!item.getType().equals(Material.BOOK)) {
                     meta.addEnchant(itemEnchants.get(x), itemLevels.get(x), true);
                 }else {
                     EnchantmentStorageMeta metaE = (EnchantmentStorageMeta) item.getItemMeta();
@@ -108,6 +109,9 @@ public abstract class Menu implements InventoryHolder {
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
             item.setAmount(amount);
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
             ArrayList<String> metaLore = new ArrayList<>();
 
             if(lore.size() != 0) {

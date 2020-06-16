@@ -27,14 +27,12 @@ public class HologramAnimator extends BukkitRunnable {
     @Override
     public void run() {
 
-        if(counter != animationLines.size()){
-            text = animationLines.get(counter);
-            hologram.setCustomName(chatFactory.chat(text));
-            counter++;
-        }else{
-            text = "";
+        if (counter == animationLines.size()) {
             counter = 0;
         }
+        text = animationLines.get(counter);
+        hologram.setCustomName(chatFactory.chat(text));
+        counter++;
 
-     }
+    }
 }
