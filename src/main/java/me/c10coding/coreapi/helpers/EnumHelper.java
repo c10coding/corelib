@@ -23,22 +23,12 @@ public class EnumHelper {
 
     public String enumToName(Enum e){
         String stringValue = e.toString();
-        String finalStringValue = "";
 
         if(stringValue.contains("_")){
-            String[] enumSplit = stringValue.split("_");
-            for(int x = 0; x < enumSplit.length; x++){
-                if(x != enumSplit.length - 1){
-                    finalStringValue += CoreAPI.getInstance().getChatFactory().firstUpperRestLower(enumSplit[x]) + " ";
-                }else{
-                    finalStringValue += CoreAPI.getInstance().getChatFactory().firstUpperRestLower(enumSplit[x]);
-                }
-            }
-        }else{
-            finalStringValue = CoreAPI.getInstance().getChatFactory().firstUpperRestLower(stringValue);
+            stringValue = stringValue.replace("_", " ");
         }
 
-        return finalStringValue;
+        return stringValue;
     }
 
     public String matToName(Material mat){

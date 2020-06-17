@@ -23,6 +23,7 @@ public class CoreAPI extends JavaPlugin{
     private ItemStackSerializer itemStackSerializer;
     private ProbabilityUtilities probabilityUtilities;
     private BlockHelper blockHelper;
+    private EnumHelper enumHelper;
 
     @Override
     public void onEnable(){
@@ -34,6 +35,7 @@ public class CoreAPI extends JavaPlugin{
         this.itemStackSerializer = new ItemStackSerializer();
         this.probabilityUtilities = new ProbabilityUtilities();
         this.blockHelper = new BlockHelper();
+        this.enumHelper = new EnumHelper();
     }
 
     @Override
@@ -73,6 +75,10 @@ public class CoreAPI extends JavaPlugin{
 
     public BlockHelper getBlockHelper(){
         return blockHelper;
+    }
+
+    public EnumHelper getEnumHelper(){
+        return enumHelper;
     }
 
     public static CoreAPI getInstance(){
