@@ -23,7 +23,8 @@ import java.util.Map;
 public abstract class Menu implements InventoryHolder {
 
         protected final Inventory inv;
-        protected Material fillerMat;
+        protected Material fillerMat = Material.STAINED_GLASS_PANE;
+        protected byte variant = (byte) 1000;
         protected JavaPlugin plugin;
         private ChatFactory chatFactory = CoreAPI.getInstance().getChatFactory();
 
@@ -44,8 +45,29 @@ public abstract class Menu implements InventoryHolder {
             this.fillerMat = fillerMat;
         }
 
+        protected void setVariant(byte variant){
+            this.variant = variant;
+        }
+
         public void openInventory(Player p) {
             p.openInventory(inv);
+        }
+
+        protected void fillMenu(boolean hasBackButton){
+            for(int x = 0; x < inv.getSize(); x++){
+                if(inv.getItem(x) == null){
+                    inv.setItem(x, createGuiItem());
+                }
+            }
+
+            if(hasBackButton){
+                ItemStack backButton = new ItemStack(Material.REDSTONE_TORCH_ON);
+                ItemMeta backButtonMeta = backButton.getItemMeta();
+                backButtonMeta.setDisplayName(chatFactory.colorString("&eClick me to go back!"));
+                backButton.setItemMeta(backButtonMeta);
+                inv.setItem(inv.getSize() - 1, backButton);
+            }
+
         }
 
         /*
@@ -53,7 +75,13 @@ public abstract class Menu implements InventoryHolder {
          */
         protected ItemStack createGuiItem(Material mat, String name, Map<Enchantment,Integer> enchants, int amount, List<String> lore) {
 
-            ItemStack item = new ItemStack(mat, amount);
+            ItemStack item;
+            if(variant != 1000){
+                item = new ItemStack(mat, amount, variant);
+            }else{
+                item = new ItemStack(mat, amount);
+            }
+
 
             ItemMeta meta = item.getItemMeta();
             ArrayList<Enchantment> itemEnchants = new ArrayList<>();
@@ -103,7 +131,12 @@ public abstract class Menu implements InventoryHolder {
          */
         protected ItemStack createGuiItem(Material material, String name,int amount, List<String> lore) {
 
-            ItemStack item = new ItemStack(material,amount);
+            ItemStack item;
+            if(variant != 1000){
+                item = new ItemStack(material, amount, variant);
+            }else{
+                item = new ItemStack(material, amount);
+            }
 
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
@@ -130,7 +163,12 @@ public abstract class Menu implements InventoryHolder {
         //If you only want one item
         protected ItemStack createGuiItem(Material material, String name, List<String> lore) {
 
-            ItemStack item = new ItemStack(material, 1);
+            ItemStack item;
+            if(variant != 1000){
+                item = new ItemStack(material, 1, variant);
+            }else{
+                item = new ItemStack(material, 1);
+            }
 
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
@@ -149,7 +187,13 @@ public abstract class Menu implements InventoryHolder {
         //Filler item
         protected ItemStack createGuiItem() {
 
-            ItemStack item = new ItemStack(fillerMat,1);
+            ItemStack item;
+            if(variant != 1000){
+                item = new ItemStack(fillerMat,1, variant);
+            }else{
+                item = new ItemStack(fillerMat, 1);
+            }
+
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(" ");
             meta.setLore(null);
@@ -197,7 +241,7 @@ public abstract class Menu implements InventoryHolder {
                     List<String> lore = new ArrayList<>();
                     lore.add(chatFactory.colorString("&rClick me to go back to the"));
                     lore.add(chatFactory.colorString("&rlast menu!"));
-                    inv.setItem(x, createGuiItem(Material.LEGACY_REDSTONE_TORCH_ON, chatFactory.colorString("&6Go back"), lore));
+                    inv.setItem(x, createGuiItem(Material.REDSTONE_TORCH_ON, chatFactory.colorString("&6Go back"), lore));
                 }
             }
         }

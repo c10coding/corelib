@@ -56,6 +56,15 @@ public class MathHelper {
         return true;
     }
 
+    public boolean isDouble(String str){
+        try {
+            Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
     public static int getRandomInteger(int maximum, int minimum){
         return ((int) (Math.random()*(maximum - minimum))) + minimum;
     }

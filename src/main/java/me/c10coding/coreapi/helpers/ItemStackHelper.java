@@ -3,10 +3,16 @@ package me.c10coding.coreapi.helpers;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemStackHelper {
 
@@ -65,6 +71,20 @@ public class ItemStackHelper {
         }else{
             return ChatColor.DARK_AQUA;
         }
+    }
+
+    /*
+        No lore no nothing. Just the head
+     */
+    public ItemStack getHead(Player player) {
+
+        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1 , (short) SkullType.PLAYER.ordinal());
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+        meta.setOwner(player.getName());
+        item.setItemMeta(meta);
+
+        return item;
+
     }
 
 }

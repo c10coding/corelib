@@ -16,7 +16,7 @@ import java.util.List;
 public class ChatFactory {
 
     public String firstUpperRestLower(String s) {
-        return s.substring(0, 1) + s.substring(1);
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
     public String valueOf(int x) {

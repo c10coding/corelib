@@ -31,6 +31,12 @@ public class EnumHelper {
         return stringValue;
     }
 
+    public Enum nameToEnum(Class clazz, String s){
+        s = s.replace(" ", "_");
+        s = s.toUpperCase();
+        return Enum.valueOf(clazz, s);
+    }
+
     public String matToName(Material mat){
         String enumName = mat.name();
         if(enumName.contains("_")){
