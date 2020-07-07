@@ -24,6 +24,7 @@ public class CoreAPI extends JavaPlugin{
     private ProbabilityUtilities probabilityUtilities;
     private BlockHelper blockHelper;
     private EnumHelper enumHelper;
+    private CustomInvHelper customInvHelper;
 
     @Override
     public void onEnable(){
@@ -36,6 +37,7 @@ public class CoreAPI extends JavaPlugin{
         this.probabilityUtilities = new ProbabilityUtilities();
         this.blockHelper = new BlockHelper();
         this.enumHelper = new EnumHelper();
+        this.customInvHelper = new CustomInvHelper();
     }
 
     @Override
@@ -85,4 +87,7 @@ public class CoreAPI extends JavaPlugin{
         return instance;
     }
 
+    public CustomInvHelper getCustomInvHelper() {
+        return customInvHelper;
+    }
 }
