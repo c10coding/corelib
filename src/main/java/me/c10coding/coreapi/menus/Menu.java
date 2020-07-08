@@ -1,7 +1,9 @@
 package me.c10coding.coreapi.menus;
 
+import me.c10coding.coreapi.APIHook;
 import me.c10coding.coreapi.CoreAPI;
 import me.c10coding.coreapi.chat.ChatFactory;
+import me.c10coding.coreapi.helpers.CustomInvHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,7 +16,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,15 @@ public abstract class Menu implements InventoryHolder {
         protected final Inventory inv;
         protected Material fillerMat = Material.STAINED_GLASS_PANE;
         protected byte variant = (byte) 1000;
-        protected JavaPlugin plugin;
-        private ChatFactory chatFactory = CoreAPI.getInstance().getChatFactory();
+        protected APIHook plugin;
+        private ChatFactory chatFactory = plugin.getAPI().getChatFactory();
+        private CustomInvHelper customInvHelper = plugin.getAPI().getCustomInvHelper();
 
         public Menu(String menuTitle, int numSlots) {
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
         }
 
-        public Menu(JavaPlugin plugin, String menuTitle, int numSlots){
+        public Menu(APIHook plugin, String menuTitle, int numSlots){
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
             this.plugin = plugin;
         }
@@ -202,16 +204,29 @@ public abstract class Menu implements InventoryHolder {
             return item;
         }
 
+        protected ItemStack createBackButton(){
+
+            ItemStack backButton = new ItemStack(Material.ARROW, 1);
+            ItemMeta meta = backButton.getItemMeta();
+
+            List<String> lore = new ArrayList<>();
+            lore.add(chatFactory.colorString("&rClick me to go back to the"));
+            lore.add(chatFactory.colorString("&rlast menu!"));
+
+            String displayName = chatFactory.colorString("&6Go back");
+            meta.setLore(lore);
+            meta.setDisplayName(displayName);
+            backButton.setItemMeta(meta);
+            return backButton;
+        }
+
 
         protected int findSlotAmount(List<String> list) {
             int slotSize = 0;
-
             do {
                 slotSize+=9;
             }while(slotSize <= list.size());
-
             return slotSize;
-
         }
 
         protected void fillMenu(List<String> list) {
@@ -226,6 +241,14 @@ public abstract class Menu implements InventoryHolder {
                     lore.add(chatFactory.colorString("&rlast menu!"));
                     inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.colorString("&6Go back"), lore));
                 }
+            }
+        }
+
+        protected void fillRow(int rowIndex){
+            int startingIndex = rowIndex * 9;
+            int endingIndex = startingIndex + 9;
+            for(int x = startingIndex; x < endingIndex; x++){
+                createGuiItem();
             }
         }
 

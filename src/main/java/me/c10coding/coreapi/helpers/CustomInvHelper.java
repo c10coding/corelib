@@ -1,6 +1,9 @@
 package me.c10coding.coreapi.helpers;
 
+import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +83,14 @@ public class CustomInvHelper {
 
         return indexes;
 
+    }
+
+    public boolean isValidClick(Inventory inv, InventoryClickEvent e){
+        if(e.getInventory() != inv) return false;
+        e.setCancelled(true);
+        final ItemStack clickedItem = e.getCurrentItem();
+        if(clickedItem == null || clickedItem.getType().equals(Material.AIR)) return false;
+        return true;
     }
 
 }
