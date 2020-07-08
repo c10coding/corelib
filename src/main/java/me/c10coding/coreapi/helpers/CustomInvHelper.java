@@ -86,10 +86,9 @@ public class CustomInvHelper {
     }
 
     public boolean isValidClick(Inventory inv, InventoryClickEvent e){
-        if(e.getInventory() != inv) return false;
-        e.setCancelled(true);
-        final ItemStack clickedItem = e.getCurrentItem();
-        if(clickedItem == null || clickedItem.getType().equals(Material.AIR)) return false;
+        if(e.getClickedInventory() == null) return false;
+        if(!e.getClickedInventory().equals(inv)) return false;
+        if(e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return false;
         return true;
     }
 

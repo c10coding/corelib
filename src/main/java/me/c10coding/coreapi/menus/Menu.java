@@ -24,7 +24,8 @@ import java.util.Map;
 public abstract class Menu implements InventoryHolder {
 
         protected final Inventory inv;
-        protected Material fillerMat = Material.STAINED_GLASS_PANE;
+        protected Material fillerMat;
+        protected Material backMat;
         protected byte variant = (byte) 1000;
         protected APIHook plugin;
         protected ChatFactory chatFactory = plugin.getAPI().getChatFactory();
@@ -47,6 +48,10 @@ public abstract class Menu implements InventoryHolder {
             this.fillerMat = fillerMat;
         }
 
+        protected void setBackMaterial(Material backMat){
+            this.backMat = backMat;
+        }
+
         protected void setVariant(byte variant){
             this.variant = variant;
         }
@@ -63,7 +68,7 @@ public abstract class Menu implements InventoryHolder {
             }
 
             if(hasBackButton){
-                ItemStack backButton = new ItemStack(Material.REDSTONE_TORCH_ON);
+                ItemStack backButton = new ItemStack(backMat);
                 ItemMeta backButtonMeta = backButton.getItemMeta();
                 backButtonMeta.setDisplayName(chatFactory.colorString("&eClick me to go back!"));
                 backButton.setItemMeta(backButtonMeta);
@@ -239,7 +244,7 @@ public abstract class Menu implements InventoryHolder {
                     List<String> lore = new ArrayList<>();
                     lore.add(chatFactory.colorString("&rClick me to go back to the"));
                     lore.add(chatFactory.colorString("&rlast menu!"));
-                    inv.setItem(x, createGuiItem(Material.ARROW, chatFactory.colorString("&6Go back"), lore));
+                    inv.setItem(x, createBackButton());
                 }
             }
         }
@@ -264,11 +269,10 @@ public abstract class Menu implements InventoryHolder {
                     List<String> lore = new ArrayList<>();
                     lore.add(chatFactory.colorString("&rClick me to go back to the"));
                     lore.add(chatFactory.colorString("&rlast menu!"));
-                    inv.setItem(x, createGuiItem(Material.REDSTONE_TORCH_ON, chatFactory.colorString("&6Go back"), lore));
+                    inv.setItem(x, createBackButton());
                 }
             }
         }
-
 
         public abstract void initializeItems(Player p);
 
