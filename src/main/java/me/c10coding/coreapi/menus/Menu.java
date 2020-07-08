@@ -27,8 +27,8 @@ public abstract class Menu implements InventoryHolder {
         protected Material fillerMat = Material.STAINED_GLASS_PANE;
         protected byte variant = (byte) 1000;
         protected APIHook plugin;
-        private ChatFactory chatFactory = plugin.getAPI().getChatFactory();
-        private CustomInvHelper customInvHelper = plugin.getAPI().getCustomInvHelper();
+        protected ChatFactory chatFactory = plugin.getAPI().getChatFactory();
+        protected CustomInvHelper customInvHelper = plugin.getAPI().getCustomInvHelper();
 
         public Menu(String menuTitle, int numSlots) {
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
