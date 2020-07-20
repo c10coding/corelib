@@ -106,7 +106,10 @@ public class CustomInvHelper {
     }
 
     public boolean isValidClickedItem(InventoryClickEvent e){
-        return (e.getCurrentItem() != null || !e.getCurrentItem().getType().equals(Material.AIR));
+        if(e.getCurrentItem() != null){
+            return e.getCurrentItem().getType() != Material.AIR;
+        }
+        return false;
     }
 
 }
