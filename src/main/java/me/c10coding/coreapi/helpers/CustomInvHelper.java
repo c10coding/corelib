@@ -1,7 +1,10 @@
 package me.c10coding.coreapi.helpers;
 
 import org.bukkit.Material;
+import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -85,11 +88,25 @@ public class CustomInvHelper {
 
     }
 
-    public boolean isValidClick(Inventory inv, InventoryClickEvent e){
-        if(e.getClickedInventory() == null) return false;
-        if(!e.getClickedInventory().equals(inv)) return false;
-        if(e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return false;
-        return true;
+    public boolean isWithinInventory(Inventory inv, Event e){
+        if(e instanceof InventoryClickEvent /*|| e instanceof InventoryMoveItemEvent*/) {
+            //if(e instanceof InventoryClickEvent){
+            InventoryClickEvent inventoryClickEvent = (InventoryClickEvent) e;
+            if (inventoryClickEvent.getClickedInventory() == null) return false;
+            if (!inventoryClickEvent.getClickedInventory().equals(inv)) return false;
+            return true;
+        /*}else if(e instanceof InventoryMoveItemEvent){
+                InventoryMoveItemEvent inventoryClickEvent = (InventoryMoveItemEvent) e;
+                if(inventoryClickEvent.getDestination() == null) return false;
+                if(!inventoryClickEvent.getDestination().equals(inv)) return false;
+                return true;
+            }*/
+        }
+        return false;
+    }
+
+    public boolean isValidClickedItem(InventoryClickEvent e){
+        return (e.getCurrentItem() != null || !e.getCurrentItem().getType().equals(Material.AIR));
     }
 
 }

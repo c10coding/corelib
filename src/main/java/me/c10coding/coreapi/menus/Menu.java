@@ -28,14 +28,16 @@ public abstract class Menu implements InventoryHolder {
         protected Material backMat;
         protected byte variant = (byte) 1000;
         protected APIHook plugin;
-        protected ChatFactory chatFactory = plugin.getAPI().getChatFactory();
-        protected CustomInvHelper customInvHelper = plugin.getAPI().getCustomInvHelper();
+        protected ChatFactory chatFactory;
+        protected CustomInvHelper customInvHelper;
 
         public Menu(String menuTitle, int numSlots) {
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
         }
 
         public Menu(APIHook plugin, String menuTitle, int numSlots){
+            this.chatFactory = plugin.getAPI().getChatFactory();
+            this.customInvHelper = plugin.getAPI().getCustomInvHelper();
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
             this.plugin = plugin;
         }
@@ -61,6 +63,7 @@ public abstract class Menu implements InventoryHolder {
         }
 
         protected void fillMenu(boolean hasBackButton){
+
             for(int x = 0; x < inv.getSize(); x++){
                 if(inv.getItem(x) == null){
                     inv.setItem(x, createGuiItem());
@@ -82,13 +85,13 @@ public abstract class Menu implements InventoryHolder {
          */
         protected ItemStack createGuiItem(Material mat, String name, Map<Enchantment,Integer> enchants, int amount, List<String> lore) {
 
+            name = chatFactory.colorString(name);
             ItemStack item;
             if(variant != 1000){
                 item = new ItemStack(mat, amount, variant);
             }else{
                 item = new ItemStack(mat, amount);
             }
-
 
             ItemMeta meta = item.getItemMeta();
             ArrayList<Enchantment> itemEnchants = new ArrayList<>();
@@ -119,11 +122,13 @@ public abstract class Menu implements InventoryHolder {
             meta.setDisplayName(name);
             item.setAmount(amount);
 
-            ArrayList<String> metaLore = new ArrayList<>();
+            List<String> metaLore = new ArrayList<>();
 
             for(String lorecomments : lore) {
                 metaLore.add(lorecomments);
             }
+
+            metaLore = chatFactory.colorLore(metaLore);
 
             if(!item.getType().equals(Material.ENCHANTED_BOOK)) {
                 meta.setLore(metaLore);
@@ -136,8 +141,9 @@ public abstract class Menu implements InventoryHolder {
         /*
          * No enchants. Regular items
          */
-        protected ItemStack createGuiItem(Material material, String name,int amount, List<String> lore) {
+        protected ItemStack createGuiItem(Material material, String name, int amount, List<String> lore) {
 
+            name = chatFactory.colorString(name);
             ItemStack item;
             if(variant != 1000){
                 item = new ItemStack(material, amount, variant);
@@ -148,15 +154,18 @@ public abstract class Menu implements InventoryHolder {
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
             item.setAmount(amount);
+
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-            ArrayList<String> metaLore = new ArrayList<>();
+
+            List<String> metaLore = new ArrayList<>();
 
             if(lore.size() != 0) {
                 for(String lorecomments : lore) {
                     metaLore.add(lorecomments);
                 }
+                metaLore = chatFactory.colorLore(metaLore);
                 meta.setLore(metaLore);
             }else {
                 meta.setLore(null);
@@ -170,6 +179,7 @@ public abstract class Menu implements InventoryHolder {
         //If you only want one item
         protected ItemStack createGuiItem(Material material, String name, List<String> lore) {
 
+            name = chatFactory.colorString(name);
             ItemStack item;
             if(variant != 1000){
                 item = new ItemStack(material, 1, variant);
@@ -253,7 +263,7 @@ public abstract class Menu implements InventoryHolder {
             int startingIndex = rowIndex * 9;
             int endingIndex = startingIndex + 9;
             for(int x = startingIndex; x < endingIndex; x++){
-                createGuiItem();
+                inv.setItem(x, createGuiItem());
             }
         }
 
