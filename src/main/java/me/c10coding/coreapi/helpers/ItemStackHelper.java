@@ -11,9 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemStackHelper {
 
     public boolean isArmor(ItemStack itemStack) {
@@ -31,7 +28,7 @@ public class ItemStackHelper {
             return false;
         }else{
             String typeName = itemStack.getType().name().toLowerCase();
-            return typeName.contains("pickaxe") || typeName.contains("axe") || typeName.contains("sword") || typeName.contains("shovel") || typeName.contains("hoe") || itemStack.getType().equals(Material.FLINT_AND_STEEL) || itemStack.getType().equals(Material.FISHING_ROD);
+            return typeName.contains("pickaxe") || typeName.contains("axe") || typeName.contains("sword") || typeName.contains("shovel") || typeName.contains("hoe") || itemStack.getType().equals(Material.FLINT_AND_STEEL) || itemStack.getType().equals(Material.FISHING_ROD) || itemStack.getType().name().toLowerCase().equalsIgnoreCase("trident") || itemStack.getType().name().toLowerCase().equalsIgnoreCase("bow");
         }
     }
 
