@@ -105,9 +105,11 @@ public class CustomInvHelper {
         return false;
     }
 
-    public boolean isValidClickedItem(InventoryClickEvent e){
+    public boolean isValidClickedItem(InventoryClickEvent e, Material fillerMat){
         if(e.getCurrentItem() != null){
-            return e.getCurrentItem().getType() != Material.AIR;
+            if(e.getCurrentItem().getType() != Material.AIR){
+                return e.getCurrentItem().getType() != fillerMat;
+            }
         }
         return false;
     }
