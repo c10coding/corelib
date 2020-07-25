@@ -11,15 +11,15 @@ public class HologramAnimator extends BukkitRunnable {
 
     private ArmorStand hologram;
     private List<String> animationLines;
-    private HologramsConfigManager hcm;
-    private AnimationsConfigManager acm;
+    private HologramsConfig hcm;
+    private AnimationsConfig acm;
     private ChatFactory chatFactory = new ChatFactory();
     String text = "";
     int counter = 0;
 
     public HologramAnimator(JavaPlugin plugin, String hologramName, int numLine){
-        this.hcm = new HologramsConfigManager(plugin);
-        this.acm = new AnimationsConfigManager(plugin);
+        this.hcm = new HologramsConfig(plugin);
+        this.acm = new AnimationsConfig(plugin);
         this.hologram = hcm.getHologramArmorStand(hologramName, numLine);
         this.animationLines = acm.getAnimationLines(hologramName, numLine);
     }

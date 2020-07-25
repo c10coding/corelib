@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ConfigManager{
+public class Config  {
 
     protected Logger logger;
     protected String fileName;
@@ -18,7 +18,7 @@ public class ConfigManager{
     protected FileConfiguration config = new YamlConfiguration();
     protected JavaPlugin plugin;
 
-    public ConfigManager(JavaPlugin plugin, String fileName){
+    public Config(JavaPlugin plugin, String fileName){
         this.plugin = plugin;
         this.fileName = fileName;
         this.file = new File(plugin.getDataFolder(), fileName);

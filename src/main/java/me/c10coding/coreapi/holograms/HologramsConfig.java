@@ -1,6 +1,6 @@
 package me.c10coding.coreapi.holograms;
 
-import me.c10coding.coreapi.files.ConfigManager;
+import me.c10coding.coreapi.files.Config;
 import me.c10coding.coreapi.serializers.LocationSerializer;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,12 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-public class HologramsConfigManager extends ConfigManager {
+public class HologramsConfig extends Config {
 
     private LocationSerializer ls;
     protected final double LINE_BUFFER = 0.3;
 
-    protected HologramsConfigManager(JavaPlugin plugin) {
+    protected HologramsConfig(JavaPlugin plugin) {
         super(plugin, "holograms.yml");
         this.ls = new LocationSerializer(config);
     }

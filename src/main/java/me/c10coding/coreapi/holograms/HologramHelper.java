@@ -13,14 +13,14 @@ import java.util.List;
 public class HologramHelper {
 
     private JavaPlugin plugin;
-    private HologramsConfigManager hc;
-    private AnimationsConfigManager acm;
+    private HologramsConfig hc;
+    private AnimationsConfig acm;
     private ChatFactory chatFactory = new ChatFactory();
 
     public HologramHelper(JavaPlugin plugin){
         this.plugin = plugin;
-        hc = new HologramsConfigManager(plugin);
-        acm = new AnimationsConfigManager(plugin);
+        hc = new HologramsConfig(plugin);
+        acm = new AnimationsConfig(plugin);
     }
 
     public void startAnimations(){

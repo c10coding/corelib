@@ -1,15 +1,14 @@
 package me.c10coding.coreapi.holograms;
 
-import me.c10coding.coreapi.files.ConfigManager;
-import org.bukkit.Bukkit;
+import me.c10coding.coreapi.files.Config;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class AnimationsConfigManager extends ConfigManager {
+public class AnimationsConfig extends Config {
 
-    protected AnimationsConfigManager(JavaPlugin plugin) {
+    protected AnimationsConfig(JavaPlugin plugin) {
         super(plugin, "animations.yml");
     }
 
@@ -34,7 +33,7 @@ public class AnimationsConfigManager extends ConfigManager {
     }
 
     protected void addAsAnimatable(String hologramName, int numLine){
-        HologramsConfigManager hcm = new HologramsConfigManager(plugin);
+        HologramsConfig hcm = new HologramsConfig(plugin);
         String hologramLine = hcm.getHologramLine(hologramName, numLine);
         List<String> lines = Arrays.asList(hologramLine.split(" "));
         config.set("Animations." + hologramName + "." + numLine + ".Lines", lines);
