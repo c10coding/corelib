@@ -4,6 +4,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BetterJavaPlugin extends APIHook{
 
@@ -14,6 +16,17 @@ public class BetterJavaPlugin extends APIHook{
             File file = new File(this.getDataFolder(), name);
             if(!file.exists()){
                 saveResource(name, false);
+            }
+        }
+    }
+
+    public void validateFolders(HashMap<String, String> folderInfo){
+        for(Map.Entry<String, String> info : folderInfo.entrySet()){
+            String fileName = info.getKey();
+            String path = info.getValue();
+            File file = new File(path, fileName);
+            if(!file.exists()){
+                file.mkdirs();
             }
         }
     }
