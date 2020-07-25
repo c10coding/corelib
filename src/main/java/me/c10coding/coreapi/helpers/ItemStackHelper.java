@@ -73,9 +73,9 @@ public class ItemStackHelper {
     /*
         No lore no nothing. Just the head
      */
-    public ItemStack getHead(Player player) {
+    public ItemStack getHead(Player player, Material skullMat) {
 
-        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1 , (short) SkullType.PLAYER.ordinal());
+        ItemStack item = new ItemStack(skullMat, 1 , (short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         meta.setOwner(player.getName());
         item.setItemMeta(meta);

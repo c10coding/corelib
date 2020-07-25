@@ -3,10 +3,7 @@ package me.c10coding.coreapi.helpers;
 import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
