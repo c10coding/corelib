@@ -20,10 +20,10 @@ public class BetterJavaPlugin extends APIHook{
         }
     }
 
-    public void validateFolders(HashMap<String, String> folderInfo){
-        for(Map.Entry<String, String> info : folderInfo.entrySet()){
+    public void validateFolders(HashMap<String, Object> folderInfo){
+        for(Map.Entry<String, Object> info : folderInfo.entrySet()){
             String fileName = info.getKey();
-            String path = info.getValue();
+            String path = (String) info.getValue();
             File file = new File(path, fileName);
             if(!file.exists()){
                 file.mkdirs();
