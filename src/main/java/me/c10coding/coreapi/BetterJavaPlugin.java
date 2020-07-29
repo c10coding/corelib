@@ -9,8 +9,6 @@ import java.util.Map;
 
 public class BetterJavaPlugin extends APIHook{
 
-    public BaseStorage storage = new BaseStorage(this);
-
     public void validateFiles(String... fileNames){
         for(String name : fileNames){
             File file = new File(this.getDataFolder(), name);
@@ -23,7 +21,7 @@ public class BetterJavaPlugin extends APIHook{
     public void validateFolders(HashMap<String, Object> folderInfo){
         for(Map.Entry<String, Object> info : folderInfo.entrySet()){
             String fileName = info.getKey();
-            String path = (String) info.getValue();
+            File path = (File) info.getValue();
             File file = new File(path, fileName);
             if(!file.exists()){
                 file.mkdirs();
