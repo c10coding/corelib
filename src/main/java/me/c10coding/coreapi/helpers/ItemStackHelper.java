@@ -84,4 +84,30 @@ public class ItemStackHelper {
 
     }
 
+    public static String getRomanNumeral(int level){
+        String romanNumeral = "";
+        if(level == 1){
+            romanNumeral = "I";
+        }else if(level == 2){
+            romanNumeral = "II";
+        }else if(level == 3){
+            romanNumeral = "III";
+        }else if(level == 4){
+            romanNumeral = "IV";
+        }else if(level == 5){
+            romanNumeral = "V";
+        }else if(level == 6){
+            romanNumeral = "VI";
+        }else if(level == 7){
+            romanNumeral = "VII";
+        }else if(level == 8){
+            romanNumeral = "VIII";
+        }else if(level == 9){
+            romanNumeral = "IX";
+        }else if(level == 10){
+            romanNumeral = "X";
+        }
+        return romanNumeral;
+    }
+
 }
