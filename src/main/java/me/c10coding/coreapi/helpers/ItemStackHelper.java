@@ -84,7 +84,7 @@ public class ItemStackHelper {
 
     }
 
-    public static String getRomanNumeral(int level){
+    public String getRomanNumeral(int level){
         String romanNumeral = "";
         if(level == 1){
             romanNumeral = "I";
