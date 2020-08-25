@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class HologramHelper {
 
@@ -127,7 +128,12 @@ public class HologramHelper {
 
     public List<String> getAllNames(){
         List<String> names = new ArrayList<>();
-        hc.getAllHologramNames().stream().forEach(name -> names.add(name));
+        Set<String> hologramNames = hc.getAllHologramNames();
+        if(hologramNames != null){
+            for(String s : hologramNames){
+                names.add(s);
+            }
+        }
         return names;
     }
 

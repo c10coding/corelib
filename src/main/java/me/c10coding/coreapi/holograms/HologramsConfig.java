@@ -109,7 +109,10 @@ public class HologramsConfig extends Config {
 
     protected Set<String> getAllHologramNames(){
         ConfigurationSection cs = config.getConfigurationSection("Holograms");
-        return cs.getKeys(false);
+        if(cs != null){
+            return cs.getKeys(false);
+        }
+        return null;
     }
 
     private String getPath(String key, String hologramName, int numLine){

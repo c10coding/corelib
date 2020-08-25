@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package me.c10coding.coreapi.chat;
 
 import org.bukkit.Bukkit;
