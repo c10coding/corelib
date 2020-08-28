@@ -66,7 +66,7 @@ public class ChatFactory {
         return newLore;
     }
 
-    public static void sendCenteredMessage(Player player, String message){
+    public void sendCenteredMessage(Player player, String message){
         final  int CENTER_PX = 154;
         if(message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
