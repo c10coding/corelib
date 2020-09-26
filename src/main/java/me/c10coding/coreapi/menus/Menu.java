@@ -30,24 +30,31 @@ public abstract class Menu implements InventoryHolder {
         protected APIHook plugin;
         protected ChatFactory chatFactory;
         protected CustomInvHelper customInvHelper;
+        protected Menu previousMenu;
 
-        public Menu(String menuTitle, int numSlots) {
-            this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
-        }
-
-        public Menu(APIHook plugin, String menuTitle, int numSlots){
+        public Menu(APIHook plugin, Menu previousMenu, String menuTitle, int numSlots){
             this.chatFactory = plugin.getAPI().getChatFactory();
             this.customInvHelper = plugin.getAPI().getCustomInvHelper();
             this.inv = Bukkit.createInventory(this, numSlots, chatFactory.colorString(menuTitle));
             this.plugin = plugin;
+            this.previousMenu = previousMenu;
         }
 
         public Inventory getInventory() {
             return inv;
         }
 
+        public void clearItems(){
+            inv.clear();;
+        }
+
         protected void setFillerMaterial(Material fillerMat){
             this.fillerMat = fillerMat;
+        }
+
+        protected void goToPreviousMenu(Player player){
+            player.closeInventory();
+            previousMenu.openInventory(player);
         }
 
         protected void setBackMaterial(Material backMat){
@@ -190,11 +197,13 @@ public abstract class Menu implements InventoryHolder {
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(name);
 
-            ArrayList<String> metaLore = new ArrayList<>();
+            List<String> metaLore = new ArrayList<>();
 
             for(String lorecomments : lore) {
                 metaLore.add(lorecomments);
             }
+
+            metaLore = chatFactory.colorLore(metaLore);
 
             meta.setLore(metaLore);
             item.setItemMeta(meta);
@@ -264,6 +273,16 @@ public abstract class Menu implements InventoryHolder {
             int endingIndex = startingIndex + 9;
             for(int x = startingIndex; x < endingIndex; x++){
                 inv.setItem(x, createGuiItem());
+            }
+        }
+
+        protected void fillRow(int rowIndex, List<Integer> exclusions){
+            int startingIndex = rowIndex * 9;
+            int endingIndex = startingIndex + 9;
+            for(int x = startingIndex; x < endingIndex; x++){
+                if(!exclusions.contains(x)){
+                    inv.setItem(x, createGuiItem());
+                }
             }
         }
 
