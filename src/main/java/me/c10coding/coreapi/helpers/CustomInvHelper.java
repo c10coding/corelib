@@ -2,6 +2,8 @@ package me.c10coding.coreapi.helpers;
 
 import org.bukkit.Material;
 import org.bukkit.event.Event;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 

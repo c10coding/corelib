@@ -37,11 +37,13 @@ public class ProbabilityUtilities {
         this.chances = new ArrayList<>();
         this.sum = 0;
     }
+
     public ProbabilityUtilities(long seed) {
         this.random = new Random(seed);
         this.chances = new ArrayList<>();
         this.sum = 0;
     }
+
     public void addChance(Object element, int chance) {
         if (!this.chances.contains(element)) {
             this.chances.add(new Chance(element, this.sum, this.sum + chance));
@@ -50,6 +52,15 @@ public class ProbabilityUtilities {
             // not sure yet, what to do, when the element already exists, since a list can't contain 2 equal entries. Right now a second, identical chance (element + chance must be equal) will be ignored
         }
     }
+
+    public void removeChance(Object element){
+        for(Chance chance : chances){
+            if(element.equals(chance.element)){
+                chances.remove(chance);
+            }
+        }
+    }
+
     public Object getRandomElement() {
         int index = this.random.nextInt(this.sum);
         // debug: System.out.println("Amount of chances: " + Integer.toString(this.chances.size()) + ", possible options: " + Integer.toString(this.sum) + ", chosen option: " + Integer.toString(index));
