@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -57,6 +58,19 @@ public class Config  {
 
     public String getValue(String path) {
         return config.getString(path);
+    }
+
+    public List<String> getCommaList(String path){
+
+        String line = config.getString(path);
+        String[] arr = line.split(",");
+
+        List<String> list = new ArrayList<>();
+        for(String s : arr){
+            list.add(s.trim());
+        }
+
+        return list;
     }
 
 }
