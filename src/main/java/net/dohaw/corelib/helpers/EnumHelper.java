@@ -1,10 +1,7 @@
-package net.dohaw.play.corelib.helpers;
+package net.dohaw.corelib.helpers;
 
-import net.dohaw.play.corelib.CoreLib;
-import net.dohaw.play.corelib.StringUtils;
+import net.dohaw.corelib.StringUtils;
 import org.bukkit.Material;
-
-import static net.dohaw.play.corelib.StringUtils.firstUpperRestLower;
 
 public class EnumHelper {
 

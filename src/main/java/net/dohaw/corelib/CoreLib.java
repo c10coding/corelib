@@ -3,9 +3,9 @@
 // (powered by Fernflower decompiler)
 //
 
-package net.dohaw.play.corelib;
+package net.dohaw.corelib;
 
-import net.dohaw.play.corelib.serializers.LocationSerializer;
+import net.dohaw.corelib.serializers.LocationSerializer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 

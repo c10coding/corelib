@@ -1,4 +1,4 @@
-package net.dohaw.play.corelib;
+package net.dohaw.corelib;
 
 import java.util.ArrayList;
 import java.util.List;

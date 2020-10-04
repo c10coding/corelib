@@ -1,4 +1,4 @@
-package net.dohaw.play.corelib.serializers;
+package net.dohaw.corelib.serializers;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;

@@ -1,7 +1,7 @@
-package net.dohaw.play.corelib.holograms;
+package net.dohaw.corelib.holograms;
 
-import net.dohaw.play.corelib.CoreLib;
-import net.dohaw.play.corelib.JPUtils;
+import net.dohaw.corelib.CoreLib;
+import net.dohaw.corelib.JPUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;

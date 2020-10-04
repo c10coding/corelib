@@ -1,4 +1,4 @@
-package net.dohaw.play.corelib.helpers;
+package net.dohaw.corelib.helpers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;

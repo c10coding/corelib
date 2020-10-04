@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.dohaw.play.corelib</groupId>
+    <groupId>net.dohaw.corelib</groupId>
     <artifactId>CoreLib</artifactId>
     <version>3.0.0</version>
     <packaging>jar</packaging>
@@ -17,7 +17,7 @@
         <developer>
             <name>Caleb Owens</name>
             <email>caleb.ja.owens@gmail.com</email>
-            <organization>net.dohaw.play</organization>
+            <organization>net.dohaw</organization>
             <organizationUrl>https://github.com/c10coding/CoreLib</organizationUrl>
         </developer>
     </developers>

@@ -1,7 +1,7 @@
-package net.dohaw.play.corelib.holograms;
+package net.dohaw.corelib.holograms;
 
-import net.dohaw.play.corelib.Config;
-import net.dohaw.play.corelib.serializers.LocationSerializer;
+import net.dohaw.corelib.Config;
+import net.dohaw.corelib.serializers.LocationSerializer;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.ArmorStand;

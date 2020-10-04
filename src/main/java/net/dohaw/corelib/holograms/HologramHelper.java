@@ -1,6 +1,6 @@
-package net.dohaw.play.corelib.holograms;
+package net.dohaw.corelib.holograms;
 
-import net.dohaw.play.corelib.StringUtils;
+import net.dohaw.corelib.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;

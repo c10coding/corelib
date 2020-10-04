@@ -1,6 +1,6 @@
-package net.dohaw.play.corelib.menus;
+package net.dohaw.corelib.menus;
 
-import net.dohaw.play.corelib.StringUtils;
+import net.dohaw.corelib.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
