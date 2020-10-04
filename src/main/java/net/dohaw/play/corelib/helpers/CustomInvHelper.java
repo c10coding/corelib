@@ -5,10 +5,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class CustomInvHelper {
 
@@ -111,6 +114,15 @@ public class CustomInvHelper {
             }
         }
         return false;
+    }
+
+    public static int getSlotClickedInDragEvent(InventoryDragEvent e){
+        Set<Integer> slots = e.getInventorySlots();
+        Iterator<Integer> itr = slots.iterator();
+        if(!itr.hasNext()){
+            return -1;
+        }
+        return itr.next();
     }
 
 }

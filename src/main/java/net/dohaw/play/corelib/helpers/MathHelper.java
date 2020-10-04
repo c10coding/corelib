@@ -81,6 +81,7 @@ public class MathHelper {
         return new Vector(x, z, y);
     }
 
+    /*
     public static Location lookAt(Location loc, Location lookat) {
         //Clone the loc to prevent applied changes to the input loc
         loc = loc.clone();
@@ -114,6 +115,6 @@ public class MathHelper {
         loc.setPitch(loc.getPitch() * 180f / (float) Math.PI);
 
         return loc;
-    }
+    }*/
 
 }
