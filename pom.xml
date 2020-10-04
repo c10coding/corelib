@@ -10,6 +10,23 @@
     <packaging>jar</packaging>
 
     <name>CoreLib</name>
+    <description>A library that can assist you in just about every plugin are you developing</description>
+    <url>https://github.com/c10coding/CoreLib</url>
+
+    <developers>
+        <developer>
+            <name>Caleb Owens</name>
+            <email>caleb.ja.owens@gmail.com</email>
+            <organization>net.dohaw.play</organization>
+            <organizationUrl>https://github.com/c10coding/CoreLib</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/c10coding/CoreLib</connection>
+        <developerConnection>scm:git:ssh://github.com/c10coding/CoreLib</developerConnection>
+        <url>https://github.com/c10coding/CoreLib/tree/master</url>
+    </scm>
 
     <properties>
         <java.version>1.8</java.version>
