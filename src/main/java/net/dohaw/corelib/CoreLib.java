@@ -6,7 +6,9 @@
 package net.dohaw.corelib;
 
 import net.dohaw.corelib.serializers.LocationSerializer;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CoreLib {
@@ -17,8 +19,8 @@ public class CoreLib {
         return instance;
     }
 
-    public static void setInstance(JavaPlugin instance) {
-        CoreLib.instance = instance;
+    public static void setInstance(JavaPlugin plugin) {
+        instance = plugin;
     }
 
     public LocationSerializer createLocationSerializer(FileConfiguration config){

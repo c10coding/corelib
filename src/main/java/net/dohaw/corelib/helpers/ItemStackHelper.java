@@ -1,5 +1,7 @@
 package net.dohaw.corelib.helpers;
 
+import com.avaje.ebean.validation.NotNull;
+import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -8,6 +10,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
@@ -82,6 +85,12 @@ public class ItemStackHelper {
 
         return item;
 
+    }
+
+    public static boolean hasEnchantment(ItemStack stack, Enchantment ench){
+        Validate.notNull(stack, "The stack can't be null!");
+        ItemMeta meta = stack.getItemMeta();
+        return meta instanceof EnchantmentStorageMeta ? ((EnchantmentStorageMeta)meta).hasStoredEnchant(ench) : meta.hasEnchant(ench);
     }
 
 

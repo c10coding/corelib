@@ -58,6 +58,15 @@ public class MathHelper {
         return true;
     }
 
+    public static boolean isInt(String ...strs){
+        for(String str : strs){
+            if(!isInt(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean isDouble(String str){
         try {
             Double.parseDouble(str);

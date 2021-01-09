@@ -1,5 +1,6 @@
 package net.dohaw.corelib;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,8 +37,9 @@ public class JPUtils {
     }
 
     public static void registerEvents(Listener... listeners){
+        JavaPlugin plugin = CoreLib.getInstance();
         for(Listener l : listeners){
-            instance.getServer().getPluginManager().registerEvents(l, instance);
+            Bukkit.getServer().getPluginManager().registerEvents(l, plugin);
         }
     }
 
