@@ -93,6 +93,4 @@ public class ItemStackHelper {
         return meta instanceof EnchantmentStorageMeta ? ((EnchantmentStorageMeta)meta).hasStoredEnchant(ench) : meta.hasEnchant(ench);
     }
 
-
-
 }

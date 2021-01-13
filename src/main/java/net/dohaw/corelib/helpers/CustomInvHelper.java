@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class CustomInvHelper {
 
+
+
     public static List<Integer> getIndexesInColumn(Inventory inv, int inventoryIndex, int inventoryNumRows){
         List<Integer> indexes = new ArrayList<>();
         int columnNum = getColumnNum(inventoryNumRows, inventoryIndex, inv);
