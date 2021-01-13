@@ -6,7 +6,10 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
@@ -24,12 +27,14 @@ public abstract class Menu implements InventoryHolder {
     /**
      * Defines what action a player has taken during the InventoryClickEvent
      */
-    enum ActionType{
+    public enum ActionType{
         NOT_VALID,
         PUT,
         REPLACE,
         TAKE,
         PUT_FROM_OTHER_INV,
+        KEYBOARD_REPLACEMENT,
+        KEYBOARD_TAKE,
     }
 
     protected final Inventory inv;
@@ -318,21 +323,42 @@ public abstract class Menu implements InventoryHolder {
         {
             return ActionType.NOT_VALID;
         }
-        final Inventory inv = e.getClickedInventory();
-        final ItemStack current = e.getCurrentItem();
-        final ItemStack cursor = e.getCursor();
+        final Inventory INV = e.getClickedInventory();
+        final ItemStack CURRENT = e.getCurrentItem();
+        final ItemStack CURSOR = e.getCursor();
+        final ClickType CLICK_TYPE = e.getClick();
+        final InventoryAction INVENTORY_ACTION = e.getAction();
 
-        if (!inv.equals(this.inv))
+        if (!INV.equals(this.inv))
         {
-            return ActionType.NOT_VALID;
+            if(CLICK_TYPE.isShiftClick()){
+                return ActionType.PUT_FROM_OTHER_INV;
+            }else{
+                return ActionType.NOT_VALID;
+            }
         }
 
-        if(cursor.getType() != Material.AIR && current != null){
+        boolean isProperClick = CLICK_TYPE.isRightClick() || CLICK_TYPE.isLeftClick();
+        if(CURSOR.getType() != Material.AIR && CURRENT != null && isProperClick){
             return ActionType.REPLACE;
-        }else if(current == null && cursor.getType() != Material.AIR){
+        }else if(CURRENT == null && CURSOR.getType() != Material.AIR && isProperClick){
             return ActionType.PUT;
         }else{
-            return ActionType.TAKE;
+            if(CLICK_TYPE.isKeyboardClick()){
+                //Replacing an item with another item from the hotbar
+                if(INVENTORY_ACTION == InventoryAction.HOTBAR_MOVE_AND_READD){
+                    return ActionType.KEYBOARD_REPLACEMENT;
+                //No replacement
+                }else if(INVENTORY_ACTION == InventoryAction.HOTBAR_SWAP){
+                    return ActionType.KEYBOARD_TAKE;
+                }else{
+                    return ActionType.NOT_VALID;
+                }
+            }else if(isProperClick){
+                return ActionType.TAKE;
+            }else{
+                return ActionType.NOT_VALID;
+            }
         }
 
     }
