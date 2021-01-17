@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class CoreLib {
 
+    public static double tps = 0;
+
     private static JavaPlugin instance;
 
     public static JavaPlugin getInstance() {
@@ -21,10 +23,50 @@ public class CoreLib {
 
     public static void setInstance(JavaPlugin plugin) {
         instance = plugin;
+        if(tps == 0){
+            startTPSChecker();
+        }
     }
 
     public LocationSerializer createLocationSerializer(FileConfiguration config){
         return new LocationSerializer(config);
+    }
+
+    private static void startTPSChecker(){
+
+        instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
+
+            long sec;
+            long currentSec;
+            int ticks;
+            int delay;
+
+            @Override
+            public void run() {
+
+                sec = (System.currentTimeMillis() / 1000);
+                if (currentSec == sec) {// this code block triggers each tick
+                    ticks++;
+                } else {// this code block triggers each second
+
+                    currentSec = sec;
+                    tps = (tps == 0 ? ticks : ((tps + ticks) / 2));
+
+                    if(tps > 20){
+                        tps = 20;
+                    }
+
+                    ticks = 0;
+
+                    if ((++delay % 300) == 0) {// this code block triggers each 5 minutes
+                        delay = 0;
+                    }
+                }
+
+            }
+
+        }, 0, 1); // do not change the "1" value, the other one is just initial delay, I recommend 0 = start instantly.
+
     }
 
 }
