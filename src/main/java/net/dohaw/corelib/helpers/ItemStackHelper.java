@@ -35,12 +35,11 @@ public class ItemStackHelper {
         }
     }
 
-    public static ItemStack addGlowToItem(ItemStack stack){
+    public static void addGlowToItem(ItemStack stack){
         ItemMeta meta = stack.getItemMeta();
         meta.addEnchant(Enchantment.WATER_WORKER, 70, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         stack.setItemMeta(meta);
-        return stack;
     }
 
     public static ChatColor matchArmorColorWithChatColor(Color armorColor){
