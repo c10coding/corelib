@@ -5,11 +5,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ChatSender {
+public class ResponderFactory {
 
-    public static void sendCenteredMessage(Player player, String message){
+    private CommandSender messageGetter;
+    private String prefix;
+
+    public ResponderFactory(CommandSender messageGetter, String prefix){
+        this.messageGetter = messageGetter;
+        this.prefix = prefix;
+    }
+
+    public ResponderFactory(CommandSender messageGetter){
+        this.messageGetter = messageGetter;
+        this.prefix = null;
+    }
+
+    public void sendCenteredMessage( String message){
         final  int CENTER_PX = 154;
-        if(message == null || message.equals("")) player.sendMessage("");
+        if(message == null || message.equals("")) messageGetter.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 
         int messagePxSize = 0;
@@ -42,27 +55,15 @@ public class ChatSender {
             sb.append(" ");
             compensated += spaceLength;
         }
-        player.sendMessage(sb.toString() + message);
+        messageGetter.sendMessage(sb.toString() + message);
     }
 
-    public static void sendPlayerMessage(String s, boolean wantPrefix, Player p, String prefix) {
-        if (wantPrefix) {
-            p.sendMessage(StringUtils.colorString(prefix + " &r" + s));
+    public void sendMessage(String s) {
+        if (prefix != null) {
+            messageGetter.sendMessage(StringUtils.colorString(prefix + " &r" + s));
         } else {
-            p.sendMessage(StringUtils.colorString("&r" + s));
+            messageGetter.sendMessage(StringUtils.colorString("&r" + s));
         }
-    }
-
-    public static void sendPlayerMessage(String s, boolean wantPrefix, CommandSender sender, String prefix) {
-        if (wantPrefix) {
-            sender.sendMessage(StringUtils.colorString(prefix + " &r" + s));
-        } else {
-            sender.sendMessage(StringUtils.colorString("&r" + s));
-        }
-    }
-
-    public static void sendConsoleMessage(String s, String prefix) {
-        Bukkit.getConsoleSender().sendMessage(StringUtils.colorString(prefix + " &r" + s));
     }
 
     public static void bsm(String s) {
