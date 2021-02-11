@@ -27,11 +27,38 @@ public class Config  {
         loadConfig();
     }
 
+    public Config(JavaPlugin plugin, File file){
+        this.plugin = plugin;
+        this.fileName = file.getName();
+        this.file = file;
+        this.logger = plugin.getLogger();
+        loadConfig();
+    }
+
+    /*
+        Only use the two constructors below if you are hooking into CoreLib.
+     */
+    public Config(String fileName){
+        this.plugin = CoreLib.getInstance();
+        this.fileName = fileName;
+        this.file = new File(plugin.getDataFolder(), fileName);
+        this.logger = plugin.getLogger();
+        loadConfig();
+    }
+
+    public Config(File file){
+        this.plugin = CoreLib.getInstance();
+        this.fileName = file.getName();
+        this.file = file;
+        this.logger = plugin.getLogger();
+        loadConfig();
+    }
+
     public void saveConfig(){
         try {
             config.save(file);
         }catch(IOException e) {
-            plugin.getLogger().warning("Unable to save " + fileName);
+            logger.warning("Unable to save " + fileName);
         }
     }
 
