@@ -18,6 +18,7 @@ public class CoreLib {
     private static JavaPlugin instance;
 
     public static JavaPlugin getInstance() {
+        checkForNoHookException();
         return instance;
     }
 
@@ -67,6 +68,16 @@ public class CoreLib {
 
         }, 0, 1); // do not change the "1" value, the other one is just initial delay, I recommend 0 = start instantly.
 
+    }
+
+    private static void checkForNoHookException(){
+        if(instance == null){
+            try {
+                throw new NoHookException();
+            } catch (NoHookException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
