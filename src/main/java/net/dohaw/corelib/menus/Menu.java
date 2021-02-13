@@ -2,6 +2,7 @@ package net.dohaw.corelib.menus;
 
 import net.dohaw.corelib.StringUtils;
 import net.dohaw.corelib.helpers.CustomInvHelper;
+import net.dohaw.corelib.helpers.ItemStackHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -141,12 +142,13 @@ public abstract class Menu implements InventoryHolder {
     }
 
     /*
-     * No enchants. Regular items
+     * No enchants. Regular items. Supports Player Heads
      */
     protected ItemStack createGuiItem(Material material, String name, int amount, List<String> lore) {
 
         name = StringUtils.colorString(name);
         ItemStack item;
+
         if(variant != 1000){
             item = new ItemStack(material, amount, variant);
         }else{
@@ -161,17 +163,30 @@ public abstract class Menu implements InventoryHolder {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
-        List<String> metaLore = new ArrayList<>();
-
         if(lore.size() != 0) {
-            for(String lorecomments : lore) {
-                metaLore.add(lorecomments);
-            }
-            metaLore = StringUtils.colorLore(metaLore);
-            meta.setLore(metaLore);
-        }else {
+            meta.setLore(lore);
+        }else{
             meta.setLore(null);
         }
+
+        item.setItemMeta(meta);
+        return item;
+
+    }
+
+    protected ItemStack createGuiItem(ItemStack stack, String name, List<String> lore){
+
+        ItemStack item = stack.clone();
+        name = StringUtils.colorString(name);
+        lore = StringUtils.colorLore(lore);
+
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        meta.setLore(lore);
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         item.setItemMeta(meta);
         return item;
@@ -182,6 +197,8 @@ public abstract class Menu implements InventoryHolder {
     protected ItemStack createGuiItem(Material material, String name, List<String> lore) {
 
         name = StringUtils.colorString(name);
+        lore = StringUtils.colorLore(lore);
+
         ItemStack item;
         if(variant != 1000){
             item = new ItemStack(material, 1, variant);
@@ -191,16 +208,8 @@ public abstract class Menu implements InventoryHolder {
 
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
+        meta.setLore(lore);
 
-        List<String> metaLore = new ArrayList<>();
-
-        for(String lorecomments : lore) {
-            metaLore.add(lorecomments);
-        }
-
-        metaLore = StringUtils.colorLore(metaLore);
-
-        meta.setLore(metaLore);
         item.setItemMeta(meta);
         return item;
     }

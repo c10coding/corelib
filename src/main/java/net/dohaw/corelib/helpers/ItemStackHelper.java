@@ -2,10 +2,7 @@ package net.dohaw.corelib.helpers;
 
 import com.avaje.ebean.validation.NotNull;
 import org.apache.commons.lang.Validate;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.SkullType;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -13,6 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ItemStackHelper {
 
@@ -75,11 +76,19 @@ public class ItemStackHelper {
     /*
         No lore no nothing. Just the head
      */
-    public static ItemStack getHead(Player player, Material skullMat) {
+    public static ItemStack getPlayerHead(UUID uuid){
 
-        ItemStack item = new ItemStack(skullMat, 1 , (short) SkullType.PLAYER.ordinal());
+        boolean isNewVersion = Arrays.stream(Material.values()).map(Material::name).collect(Collectors.toList()).contains("PLAYER_HEAD");
+
+        Material type = Material.matchMaterial(isNewVersion ? "PLAYER_HEAD" : "SKULL_ITEM");
+        ItemStack item = new ItemStack(type, 1);
+
+        if (!isNewVersion)
+            item.setDurability((short) 3);
+
         SkullMeta meta = (SkullMeta) item.getItemMeta();
-        meta.setOwner(player.getName());
+        meta.setOwner(Bukkit.getOfflinePlayer(uuid).getName());
+
         item.setItemMeta(meta);
 
         return item;
