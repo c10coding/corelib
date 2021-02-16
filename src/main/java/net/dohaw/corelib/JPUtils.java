@@ -6,6 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 public class JPUtils {
@@ -21,16 +24,47 @@ public class JPUtils {
         }
     }
 
-    public static void validateFolders(Map<String, Object> folderInfo){
-        for(Map.Entry<String, Object> info : folderInfo.entrySet()){
-            String fileName = info.getKey();
-            File path = (File) info.getValue();
+    /*
+        For if you want to either validate a folder, or validate a resource that needs to be saved in a directory other than the plugin config directory
+     */
+    public static void validateFilesOrFolders(Map<String, Object> info, boolean isFolder){
+        for(Map.Entry<String, Object> entry : info.entrySet()){
+            String fileName = entry.getKey();
+            File path = (File) entry.getValue();
             File file = new File(path, fileName);
             if(!file.exists()){
-                file.mkdirs();
+                if(isFolder){
+                    file.mkdirs();
+                }else{
+                    InputStream resource = instance.getResource(fileName);
+                    if(resource != null){
+
+                        boolean fileHasBeenCreated = false;
+                        try {
+                            fileHasBeenCreated = file.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(fileHasBeenCreated) {
+
+                            try {
+                                FileUtils.copyInputStreamToFile(resource, file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                }
             }
+
+
         }
     }
+
+
 
     public static void registerCommand(String commandName, CommandExecutor exec){
         instance.getServer().getPluginCommand(commandName).setExecutor(exec);
