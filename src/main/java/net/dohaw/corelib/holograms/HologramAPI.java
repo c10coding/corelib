@@ -18,7 +18,7 @@ public class HologramAPI {
 
         Map<String, Object> folders = new HashMap<>();
         folders.put("holograms", hookingPlugin.getDataFolder());
-        JPUtils.validateFolders(folders);
+        JPUtils.validateFilesOrFolders(folders, true);
 
         File hologramsFile = new File(hookingPlugin.getDataFolder() + "/holograms", "holograms.yml");
         File animationsFile = new File(hookingPlugin.getDataFolder() + "holograms", "animations.yml");

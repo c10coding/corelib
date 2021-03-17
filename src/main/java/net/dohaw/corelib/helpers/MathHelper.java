@@ -8,6 +8,18 @@ import java.text.DecimalFormat;
 
 public class MathHelper {
 
+    public enum CardinalDirection{
+        N,
+        NE,
+        E,
+        SE,
+        S,
+        SW,
+        W,
+        NW,
+        INVALID;
+    }
+
     public static double roundToPoint5(double x) {
         return Math.round(x * 2) / 2.0;
     }
@@ -21,32 +33,35 @@ public class MathHelper {
         return Double.parseDouble(df.format(x));
     }
 
-    public static String getCardinalDirection(Player player) {
+    public static CardinalDirection getCardinalDirection(Player player) {
+
         double rotation = (player.getLocation().getYaw() - 90) % 360;
         if (rotation < 0) {
             rotation += 360.0;
         }
+
         if (0 <= rotation && rotation < 22.5) {
-            return "N";
+            return CardinalDirection.N;
         } else if (22.5 <= rotation && rotation < 67.5) {
-            return "NE";
+            return CardinalDirection.NE;
         } else if (67.5 <= rotation && rotation < 112.5) {
-            return "E";
+            return CardinalDirection.E;
         } else if (112.5 <= rotation && rotation < 157.5) {
-            return "SE";
+            return CardinalDirection.SE;
         } else if (157.5 <= rotation && rotation < 202.5) {
-            return "S";
+            return CardinalDirection.S;
         } else if (202.5 <= rotation && rotation < 247.5) {
-            return "SW";
+            return CardinalDirection.SW;
         } else if (247.5 <= rotation && rotation < 292.5) {
-            return "W";
+            return CardinalDirection.W;
         } else if (292.5 <= rotation && rotation < 337.5) {
-            return "NW";
+            return CardinalDirection.NW;
         } else if (337.5 <= rotation && rotation < 360.0) {
-            return "N";
+            return CardinalDirection.N;
         } else {
-            return null;
+            return CardinalDirection.INVALID;
         }
+
     }
 
     public static boolean isInt(String str) {
