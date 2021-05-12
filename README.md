@@ -3,12 +3,19 @@ An libary that can assist you in whatever spigot plugin you are developing
 
 ## How to use it
 ### Maven
-If you use maven, you can simply just drop this in your dependencies:
+If you use maven, you can simply just drop these dependency and repository blocks in your pom.xml:
+
+```
+<repository>
+  <id>myMavenRepoRead</id>
+  <url>https://mymavenrepo.com/repo/NS8ChmY70jB4I67iQ6bU/</url>
+</repository>
+```
 ```
 <dependency>
-  <groupId>net.dohaw.corelib</groupId>
+  <groupId>net.dohaw</groupId>
   <artifactId>CoreLib</artifactId>
-  <version>3.0.1</version>
+  <version>3.1.3</version>
 </dependency>
 ```
 ### Hook
