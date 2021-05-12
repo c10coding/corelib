@@ -64,8 +64,6 @@ public class JPUtils {
         }
     }
 
-
-
     public static void registerCommand(String commandName, CommandExecutor exec){
         instance.getServer().getPluginCommand(commandName).setExecutor(exec);
     }

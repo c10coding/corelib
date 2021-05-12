@@ -1,10 +1,11 @@
 package net.dohaw.corelib.helpers;
 
-import com.avaje.ebean.validation.NotNull;
 import org.apache.commons.lang.Validate;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -18,9 +19,13 @@ import java.util.stream.Collectors;
 public class ItemStackHelper {
 
     public static boolean isArmor(ItemStack itemStack) {
-        if (itemStack == null)
+        return isArmor(itemStack.getType());
+    }
+
+    public static boolean isArmor(Material mat) {
+        if (mat == null)
             return false;
-        String typeNameString = itemStack.getType().name();
+        String typeNameString = mat.name();
         return typeNameString.endsWith("_HELMET")
                 || typeNameString.endsWith("_CHESTPLATE")
                 || typeNameString.endsWith("_LEGGINGS")
