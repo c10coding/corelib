@@ -6,7 +6,7 @@ An libary that can assist you in whatever spigot plugin you are developing
 If you use maven, you can simply just drop these dependency and repository blocks in your pom.xml:
 
 ```
-repository>
+<repository>
   <id>sonatype</id>
   <url>https://oss.sonatype.org/content/groups/public/</url>
 </repository>
