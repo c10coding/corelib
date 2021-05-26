@@ -17,7 +17,7 @@ public class HologramsConfig extends Config {
 
     protected HologramsConfig(JavaPlugin plugin) {
         super(plugin, "holograms/holograms.yml");
-        this.ls = new LocationSerializer(config);
+        this.ls = new LocationSerializer();
     }
 
     protected void createNewHologram(String name, String hologramText, Location loc, UUID entityUUID){
@@ -63,7 +63,7 @@ public class HologramsConfig extends Config {
     }
 
     protected ArmorStand getHologramArmorStand(String hologramName, int numLine){
-        Location armorStandLocation = ls.toLocationFromPath(getPath("Location", hologramName, numLine));
+        Location armorStandLocation = ls.toLocation(getPath("Location", hologramName, numLine));
         if(!armorStandLocation.getChunk().isLoaded()){
             armorStandLocation.getChunk().load();
         }

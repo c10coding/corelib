@@ -29,10 +29,6 @@ public class CoreLib {
         }
     }
 
-    public LocationSerializer createLocationSerializer(FileConfiguration config){
-        return new LocationSerializer(config);
-    }
-
     private static void startTPSChecker(){
 
         instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
