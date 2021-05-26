@@ -3,56 +3,28 @@ package net.dohaw.corelib.serializers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class LocationSerializer {
 
-    private FileConfiguration config;
-
-    public LocationSerializer(FileConfiguration config) {
-        this.config = config;
-    }
-
     public LocationSerializer(){}
 
-    public void storeLocation(String path, Location loc) {
-        config.set(path, "World: " + loc.getWorld().getName() + ";X: " + loc.getBlockX() + ";Y: " + loc.getBlockY() + ";Z: " + loc.getBlockZ());
+    public String toString(Location location) {
+        return "World: " + location.getWorld().getName() + ";X: " + location.getX() + ";Y: " + location.getY() + ";Z: " + location.getZ();
     }
 
-    public String toString(Location loc){
-        return "World: " + loc.getWorld().getName() + ";X: " + loc.getBlockX() + ";Y: " + loc.getBlockY() + ";Z: " + loc.getBlockZ();
-    }
+    public Location toLocation(String strLocation) {
 
-    public Location toLocationFromPath(String path) {
-
-        World w;
+        World world;
         double x,y,z;
 
-        String line = config.getString(path);
+        String[] arrStrLocation = strLocation.split(";");
 
-        String[] arrLine = line.split(";");
+        world = Bukkit.getWorld(arrStrLocation[0].substring(7));
+        x = Double.parseDouble(arrStrLocation[1].substring(3));
+        y = Double.parseDouble(arrStrLocation[2].substring(3));
+        z = Double.parseDouble(arrStrLocation[3].substring(3));
 
-        w = Bukkit.getWorld(arrLine[0].substring(7));
-        x = Double.parseDouble(arrLine[1].substring(3));
-        y = Double.parseDouble(arrLine[2].substring(3));
-        z = Double.parseDouble(arrLine[3].substring(3));
-
-        return new Location(w, x, y, z);
-    }
-
-    public Location toLocationFromLine(String line) {
-
-        World w;
-        double x,y,z;
-
-        String[] arrLine = line.split(";");
-
-        w = Bukkit.getWorld(arrLine[0].substring(7));
-        x = Double.parseDouble(arrLine[1].substring(3));
-        y = Double.parseDouble(arrLine[2].substring(3));
-        z = Double.parseDouble(arrLine[3].substring(3));
-
-        return new Location(w, x, y, z);
+        return new Location(world, x, y, z);
     }
 
 }
