@@ -24,6 +24,7 @@ public class Config  {
         this.fileName = fileName;
         this.file = new File(plugin.getDataFolder(), fileName);
         this.logger = plugin.getLogger();
+        createFile();
         loadConfig();
     }
 
@@ -32,6 +33,7 @@ public class Config  {
         this.fileName = file.getName();
         this.file = file;
         this.logger = plugin.getLogger();
+        createFile();
         loadConfig();
     }
 
@@ -43,6 +45,7 @@ public class Config  {
         this.fileName = fileName;
         this.file = new File(plugin.getDataFolder(), fileName);
         this.logger = plugin.getLogger();
+        createFile();
         loadConfig();
     }
 
@@ -51,6 +54,7 @@ public class Config  {
         this.fileName = file.getName();
         this.file = file;
         this.logger = plugin.getLogger();
+        createFile();
         loadConfig();
     }
 
@@ -68,6 +72,16 @@ public class Config  {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
             logger.warning("Unable to load " + fileName);
+        }
+    }
+
+    private void createFile(){
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
