@@ -2,8 +2,6 @@ package net.dohaw.corelib.helpers;
 
 import org.bukkit.Material;
 import org.bukkit.event.Event;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
@@ -14,8 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 public class CustomInvHelper {
-
-
 
     public static List<Integer> getIndexesInColumn(Inventory inv, int inventoryIndex, int inventoryNumRows){
         List<Integer> indexes = new ArrayList<>();

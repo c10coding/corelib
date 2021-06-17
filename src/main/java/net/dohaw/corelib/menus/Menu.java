@@ -18,8 +18,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class Menu implements InventoryHolder {
 
@@ -63,24 +65,6 @@ public abstract class Menu implements InventoryHolder {
 
     public void openInventory(Player p) {
         p.openInventory(inv);
-    }
-
-    protected void fillMenu(boolean hasBackButton){
-
-        for(int x = 0; x < inv.getSize(); x++){
-            if(inv.getItem(x) == null){
-                inv.setItem(x, createGuiItem());
-            }
-        }
-
-        if(hasBackButton){
-            ItemStack backButton = new ItemStack(backMat);
-            ItemMeta backButtonMeta = backButton.getItemMeta();
-            backButtonMeta.setDisplayName(StringUtils.colorString("&eClick me to go back!"));
-            backButton.setItemMeta(backButtonMeta);
-            inv.setItem(inv.getSize() - 1, backButton);
-        }
-
     }
 
     /*
@@ -232,7 +216,7 @@ public abstract class Menu implements InventoryHolder {
         return item;
     }
 
-    protected ItemStack createBackButton(){
+    private ItemStack createBackButton(){
 
         ItemStack backButton = new ItemStack(Material.ARROW, 1);
         ItemMeta meta = backButton.getItemMeta();
@@ -244,6 +228,7 @@ public abstract class Menu implements InventoryHolder {
         String displayName = StringUtils.colorString("&6Go back");
         meta.setLore(lore);
         meta.setDisplayName(displayName);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         backButton.setItemMeta(meta);
         return backButton;
     }
@@ -261,6 +246,55 @@ public abstract class Menu implements InventoryHolder {
         int invSlots = inv.getSize();
         int amount = list.size();
 
+        for(int x = amount; x < invSlots; x++) {
+            inv.setItem(x, createGuiItem());
+            if(x == (invSlots - 1)) {
+                inv.setItem(x, createBackButton());
+            }
+        }
+    }
+
+    protected void fillMenu(boolean hasBackButton){
+
+        for(int x = 0; x < inv.getSize(); x++){
+            if(inv.getItem(x) == null){
+                inv.setItem(x, createGuiItem());
+            }
+        }
+
+        if(hasBackButton){
+            inv.setItem(inv.getSize() - 1, createBackButton());
+        }
+
+    }
+
+    protected void fillMenu(boolean hasBackButton, int... exclusions){
+
+        List<Integer> exlusionsList = Arrays.stream(exclusions)        // IntStream
+            .boxed()          // Stream<Integer>
+            .collect(Collectors.toList());
+        for(int x = 0; x < inv.getSize(); x++){
+            if(inv.getItem(x) == null && !exlusionsList.contains(x)){
+                inv.setItem(x, createGuiItem());
+            }
+        }
+
+        if(hasBackButton){
+            ItemStack backButton = new ItemStack(backMat);
+            ItemMeta backButtonMeta = backButton.getItemMeta();
+            backButtonMeta.setDisplayName(StringUtils.colorString("&eClick me to go back!"));
+            backButton.setItemMeta(backButtonMeta);
+            inv.setItem(inv.getSize() - 1, backButton);
+        }
+
+    }
+
+    /*
+     * You use this when you already know how many items are in the menu
+     */
+    protected void fillMenu(int amount) {
+
+        int invSlots = inv.getSize();
         for(int x = amount; x < invSlots; x++) {
             inv.setItem(x, createGuiItem());
             if(x == (invSlots - 1)) {
@@ -290,24 +324,13 @@ public abstract class Menu implements InventoryHolder {
         }
     }
 
-    /*
-     * You use this when you already know how many items are in the menu
-     */
-    protected void fillMenu(int amount) {
-        int invSlots = inv.getSize();
-
-        for(int x = amount; x < invSlots; x++) {
-            inv.setItem(x, createGuiItem());
-            if(x == (invSlots - 1)) {
-                List<String> lore = new ArrayList<>();
-                lore.add(StringUtils.colorString("&rClick me to go back to the"));
-                lore.add(StringUtils.colorString("&rlast menu!"));
-                inv.setItem(x, createBackButton());
-            }
-        }
-    }
-
     public abstract void initializeItems(Player p);
+
+    protected boolean isBackButton(ItemStack stack){
+        if(stack == null || stack.getItemMeta() == null) return false;
+        ItemMeta meta = stack.getItemMeta();
+        return meta.hasItemFlag(ItemFlag.HIDE_POTION_EFFECTS) && stack.getType() == backMat;
+    }
 
     @EventHandler
     protected abstract void onInventoryClick(InventoryClickEvent e);

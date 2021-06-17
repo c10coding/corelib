@@ -28,6 +28,7 @@ public class JPUtils {
         For if you want to either validate a folder, or validate a resource that needs to be saved in a directory other than the plugin config directory
      */
     public static void validateFilesOrFolders(Map<String, Object> info, boolean areFolders){
+
         for(Map.Entry<String, Object> entry : info.entrySet()){
             String fileName = entry.getKey();
             File path = (File) entry.getValue();
@@ -60,8 +61,8 @@ public class JPUtils {
                 }
             }
 
-
         }
+
     }
 
     public static void registerCommand(String commandName, CommandExecutor exec){
