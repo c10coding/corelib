@@ -14,9 +14,23 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class ItemStackHelper {
+public abstract class ItemStackHelper {
+
+    static InternalsProvider internals;
+
+    static{
+        String internalsName = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        try{
+            String packageName = ItemStackHelper.class.getPackage().getName();
+            internals = (InternalsProvider) Class.forName(packageName + "." + internalsName).newInstance();
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            Bukkit.getLogger().log(Level.SEVERE, "ItemStackHelper could not find a valid implementation for this server version: " + internalsName);
+            internals = new InternalsProvider();
+        }
+    }
 
     public static boolean isArmor(ItemStack itemStack) {
         return isArmor(itemStack.getType());
@@ -98,6 +112,10 @@ public class ItemStackHelper {
 
         return item;
 
+    }
+
+    public static ItemStack getBase64PlayerHead(String base64){
+        return internals.getBase64Head(base64);
     }
 
     public static boolean hasEnchantment(ItemStack stack, Enchantment ench){

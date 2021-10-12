@@ -216,7 +216,7 @@ public abstract class Menu implements InventoryHolder {
         return item;
     }
 
-    private ItemStack createBackButton(){
+    protected ItemStack createBackButton(){
 
         ItemStack backButton = new ItemStack(Material.ARROW, 1);
         ItemMeta meta = backButton.getItemMeta();

@@ -5,10 +5,6 @@
 
 package net.dohaw.corelib;
 
-import net.dohaw.corelib.serializers.LocationSerializer;
-import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CoreLib {
