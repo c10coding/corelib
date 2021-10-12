@@ -1,5 +1,6 @@
 package net.dohaw.corelib.helpers;
 
+import net.dohaw.corelib.CoreLib;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,15 +18,14 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public abstract class ItemStackHelper {
+public class ItemStackHelper {
 
     static InternalsProvider internals;
 
     static{
         String internalsName = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
         try{
-            String packageName = ItemStackHelper.class.getPackage().getName();
-            internals = (InternalsProvider) Class.forName(packageName + "." + internalsName).newInstance();
+            internals = (InternalsProvider) Class.forName(CoreLib.class.getPackage().getName() + "." + internalsName).newInstance();
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             Bukkit.getLogger().log(Level.SEVERE, "ItemStackHelper could not find a valid implementation for this server version: " + internalsName);
             internals = new InternalsProvider();
