@@ -14,7 +14,7 @@ If you use maven, you can simply just drop these dependency and repository block
 ```
 <dependency>
   <groupId>net.dohaw</groupId>
-  <artifactId>CoreLib</artifactId>
+  <artifactId>corelib-dist</artifactId>
   <version>LATEST</version>
 </dependency>
 ```
