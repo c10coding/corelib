@@ -15,7 +15,7 @@ If you use maven, you can simply just drop these dependency and repository block
 <dependency>
   <groupId>net.dohaw</groupId>
   <artifactId>CoreLib</artifactId>
-  <version>3.1.3</version>
+  <version>LATEST</version>
 </dependency>
 ```
 ### Hook
