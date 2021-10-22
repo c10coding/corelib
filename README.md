@@ -1,5 +1,5 @@
 # CoreLib
-An libary that can assist you in whatever spigot plugin you are developing
+A libary that can assist you in whatever spigot plugin you are developing
 
 ## How to use it
 ### Maven
