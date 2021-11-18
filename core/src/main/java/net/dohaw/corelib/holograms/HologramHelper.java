@@ -32,7 +32,7 @@ public class HologramHelper {
                     new HologramAnimator(plugin, name, x).runTaskTimer(plugin, 0L, 20L);
                 }else{
                     /*
-                    If the animation is disabled, but it's in the animations config file, set the line back to what it originally is without the animations.
+                    If the animation is disabled, but it's in the animations loadedFile file, set the line back to what it originally is without the animations.
                      */
                     if(hasAnimation(name, x)){
                         ArmorStand as = hc.getHologramArmorStand(name, x);
@@ -46,7 +46,7 @@ public class HologramHelper {
 
     public void setAsAnimatable(String hologramName, int numLine){
         acm.addAsAnimatable(hologramName, numLine);
-        acm.saveConfig();
+        acm.save();
     }
 
     public boolean isBeingAnimated(String hologramName, int numLine){
@@ -59,7 +59,7 @@ public class HologramHelper {
 
     public void setAnimationStatus(String hologramName, int numLine, boolean isEnabled){
         acm.setAnimationStatus(hologramName, numLine, isEnabled);
-        acm.saveConfig();
+        acm.save();
     }
 
     public void createHologram(Location loc, String hologramText, String hologramName){
@@ -67,7 +67,7 @@ public class HologramHelper {
         ArmorStand hologram = (ArmorStand) loc.getWorld().spawnEntity(loc.subtract(0,1, 0), EntityType.ARMOR_STAND);
         setArmorStandTraits(hologram, hologramText);
         hc.createNewHologram(hologramName, hologramText, loc, hologram.getUniqueId());
-        hc.saveConfig();
+        hc.save();
     }
 
     public void removeHologram(String hologramName){
@@ -82,8 +82,8 @@ public class HologramHelper {
         }
         hc.removeHologram(hologramName);
         acm.removeAnimation(hologramName);
-        acm.saveConfig();
-        hc.saveConfig();
+        acm.save();
+        hc.save();
     }
 
     public void removeAllHolograms(){
@@ -102,24 +102,24 @@ public class HologramHelper {
         ArmorStand nextArmorStand = (ArmorStand) nextArmorStandLoc.getWorld().spawnEntity(nextArmorStandLoc, EntityType.ARMOR_STAND);
         setArmorStandTraits(nextArmorStand, hologramText);
         hc.addLine(hologramName, hologramText, nextArmorStand);
-        hc.saveConfig();
+        hc.save();
     }
 
     public void addAnimationLine(String hologramName, String hologramText, int numLine){
         acm.addAnimationLine(hologramName, hologramText, numLine);
-        acm.saveConfig();
+        acm.save();
     }
 
     public void setAnimationLines(String hologramName, List<String> lines, int numLine){
         acm.setAnimationLines(hologramName, lines, numLine);
-        acm.saveConfig();
+        acm.save();
     }
 
     public void editLine(String hologramName, String newHologramText, int numLine){
         ArmorStand armorStand = hc.getHologramArmorStand(hologramName, numLine);
         armorStand.setCustomName(stringUtils.colorString(newHologramText));
         hc.editLine(hologramName, newHologramText, numLine);
-        hc.saveConfig();
+        hc.save();
     }
 
     public String getLine(String hologramName, int numLine){

@@ -11,64 +11,64 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Config  {
+public class YamlFile {
 
     protected Logger logger;
     protected String fileName;
     protected File file;
-    protected FileConfiguration config = new YamlConfiguration();
+    protected FileConfiguration loadedFile = new YamlConfiguration();
     protected JavaPlugin plugin;
 
-    public Config(JavaPlugin plugin, String fileName){
+    public YamlFile(JavaPlugin plugin, String fileName){
         this.plugin = plugin;
         this.fileName = fileName;
         this.file = new File(plugin.getDataFolder(), fileName);
         this.logger = plugin.getLogger();
         createFile();
-        loadConfig();
+        load();
     }
 
-    public Config(JavaPlugin plugin, File file){
+    public YamlFile(JavaPlugin plugin, File file){
         this.plugin = plugin;
         this.fileName = file.getName();
         this.file = file;
         this.logger = plugin.getLogger();
         createFile();
-        loadConfig();
+        load();
     }
 
     /*
         Only use the two constructors below if you are hooking into CoreLib.
      */
-    public Config(String fileName){
+    public YamlFile(String fileName){
         this.plugin = CoreLib.getInstance();
         this.fileName = fileName;
         this.file = new File(plugin.getDataFolder(), fileName);
         this.logger = plugin.getLogger();
         createFile();
-        loadConfig();
+        load();
     }
 
-    public Config(File file){
+    public YamlFile(File file){
         this.plugin = CoreLib.getInstance();
         this.fileName = file.getName();
         this.file = file;
         this.logger = plugin.getLogger();
         createFile();
-        loadConfig();
+        load();
     }
 
-    public void saveConfig(){
+    public void save(){
         try {
-            config.save(file);
+            loadedFile.save(file);
         }catch(IOException e) {
             logger.warning("Unable to save " + fileName);
         }
     }
 
-    public void loadConfig(){
+    private void load(){
         try {
-            config.load(file);
+            loadedFile.load(file);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
             logger.warning("Unable to load " + fileName);
@@ -85,25 +85,25 @@ public class Config  {
         }
     }
 
-    public void reloadConfig() {
-        config = YamlConfiguration.loadConfiguration(file);
+    public void reload() {
+        loadedFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public FileConfiguration getConfig(){
-        return config;
+    public FileConfiguration getLoadedFile(){
+        return loadedFile;
     }
 
     public List<String> getList(String path){
-        return config.getStringList(path);
+        return loadedFile.getStringList(path);
     }
 
     public String getValue(String path) {
-        return config.getString(path);
+        return loadedFile.getString(path);
     }
 
     public List<String> getCommaList(String path){
 
-        String line = config.getString(path);
+        String line = loadedFile.getString(path);
         String[] arr = line.split(",");
 
         List<String> list = new ArrayList<>();

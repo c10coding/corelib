@@ -1,6 +1,6 @@
 package net.dohaw.corelib.holograms;
 
-import net.dohaw.corelib.Config;
+import net.dohaw.corelib.YamlFile;
 import net.dohaw.corelib.serializers.LocationSerializer;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-public class HologramsConfig extends Config {
+public class HologramsConfig extends YamlFile {
 
     private LocationSerializer ls;
     protected final double LINE_BUFFER = 0.3;
@@ -21,28 +21,28 @@ public class HologramsConfig extends Config {
     }
 
     protected void createNewHologram(String name, String hologramText, Location loc, UUID entityUUID){
-        config.set(getPath("Text", name, 1), hologramText);
-        config.set(getPath("Location", name, 1), ls.toString(loc));
-        config.set(getPath("UUID", name, 1), entityUUID.toString());
+        loadedFile.set(getPath("Text", name, 1), hologramText);
+        loadedFile.set(getPath("Location", name, 1), ls.toString(loc));
+        loadedFile.set(getPath("UUID", name, 1), entityUUID.toString());
     }
 
     protected void addLine(String hologramName, String hologramText, ArmorStand as){
         int numLine = getNumLines(hologramName) + 1;
-        config.set(getPath("Text", hologramName, numLine), hologramText);
-        config.set(getPath("Location", hologramName, numLine), ls.toString(as.getLocation()));
-        config.set(getPath("UUID", hologramName, numLine), as.getUniqueId().toString());
+        loadedFile.set(getPath("Text", hologramName, numLine), hologramText);
+        loadedFile.set(getPath("Location", hologramName, numLine), ls.toString(as.getLocation()));
+        loadedFile.set(getPath("UUID", hologramName, numLine), as.getUniqueId().toString());
     }
 
     protected void editLine(String hologramName, String hologramText, int numLine){
-        config.set(getPath("Text", hologramName, numLine), hologramText);
+        loadedFile.set(getPath("Text", hologramName, numLine), hologramText);
     }
 
     protected void removeHologram(String hologramName){
-        config.set("Holograms." + hologramName, null);
+        loadedFile.set("Holograms." + hologramName, null);
     }
 
     protected boolean isAHologram(String nameOfHologram){
-        return config.getString(getPath("Text", nameOfHologram, 1)) != null;
+        return loadedFile.getString(getPath("Text", nameOfHologram, 1)) != null;
     }
 
     /*
@@ -52,14 +52,14 @@ public class HologramsConfig extends Config {
 
     protected int getNumLines(String hologramName){
         int numLine = 1;
-        while(config.getString(getPath("Text", hologramName, numLine)) != null){
+        while(loadedFile.getString(getPath("Text", hologramName, numLine)) != null){
             numLine++;
         }
         return (numLine - 1);
     }
 
     public UUID getHologramUUID(String hologramName, int numLine){
-        return UUID.fromString(config.getString(getPath("UUID", hologramName, numLine)));
+        return UUID.fromString(loadedFile.getString(getPath("UUID", hologramName, numLine)));
     }
 
     protected ArmorStand getHologramArmorStand(String hologramName, int numLine){
@@ -100,7 +100,7 @@ public class HologramsConfig extends Config {
     }
 
     protected String getHologramLine(String hologramName, int numLine){
-        return config.getString(getPath("Text", hologramName, numLine));
+        return loadedFile.getString(getPath("Text", hologramName, numLine));
     }
 
     protected ArmorStand getHologramLastLine(String hologramName){
@@ -108,7 +108,7 @@ public class HologramsConfig extends Config {
     }
 
     protected Set<String> getAllHologramNames(){
-        ConfigurationSection cs = config.getConfigurationSection("Holograms");
+        ConfigurationSection cs = loadedFile.getConfigurationSection("Holograms");
         if(cs != null){
             return cs.getKeys(false);
         }

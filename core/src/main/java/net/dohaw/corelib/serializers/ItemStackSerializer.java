@@ -59,7 +59,7 @@ public class ItemStackSerializer {
                 String key = (String) info.getKey();
                 String value = (String) info.getKey();
                 String path = "Items." + playerUUID.toString() + "." + numSlot + "." + key;
-                //config.set(path, );
+                //loadedFile.set(path, );
             }
 
         }

@@ -25,7 +25,7 @@ public class JPUtils {
     }
 
     /*
-        For if you want to either validate a folder, or validate a resource that needs to be saved in a directory other than the plugin config directory
+        For if you want to either validate a folder, or validate a resource that needs to be saved in a directory other than the plugin loadedFile directory
      */
     public static void validateFilesOrFolders(Map<String, Object> info, boolean areFolders){
 
