@@ -7,6 +7,12 @@ package net.dohaw.corelib;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Project description...
+ *
+ * @author <a href="nthbyte.com">nthByte LLC</a> [Developer - your name]
+ * @version 1.0.0
+ */
 public class CoreLib {
 
     public static double tps = 0;

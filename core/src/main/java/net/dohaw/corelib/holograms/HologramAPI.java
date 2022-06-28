@@ -21,7 +21,7 @@ public class HologramAPI {
         JPUtils.validateFilesOrFolders(folders, true);
 
         File hologramsFile = new File(hookingPlugin.getDataFolder() + "/holograms", "holograms.yml");
-        File animationsFile = new File(hookingPlugin.getDataFolder() + "holograms", "animations.yml");
+        File animationsFile = new File(hookingPlugin.getDataFolder() + "/holograms", "animations.yml");
 
         if(!hologramsFile.exists()){
             hologramsFile.createNewFile();
